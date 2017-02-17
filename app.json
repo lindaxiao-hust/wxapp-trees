@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/tree/tree",
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f8f8f8",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "树",
+    "backgroundColor": "#f8f8f8",
+    "enablePullDownRefresh": false
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000,
+    "uploadFile": 10000,
+    "downloadFile": 10000
+  },
+  "debug": false
+}
