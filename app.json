@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/comment/comment",
     "pages/tree/tree",
     "pages/index/index"
   ],

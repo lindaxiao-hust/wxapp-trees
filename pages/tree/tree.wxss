@@ -5,6 +5,7 @@
 }
 
 .icon-item {
+  display: -webkit-flex;
   display: flex;
   align-items: center;
   margin-bottom: 15px;
@@ -12,6 +13,7 @@
 .icon-item-text {
   font-size: 20px;
   font-weight: 400;
+  -webkit-flex: 1;
   flex: 1;
 }
 .icon-item-img {

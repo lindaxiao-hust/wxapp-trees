@@ -38,3 +38,15 @@
   border-bottom: 1rpx solid #D9D9D9;
   color: #D9D9D9;
 }
+
+.weui-loadmore {
+  width: 65%;
+  margin: 1.5em auto;
+  line-height: 1.6em;
+  font-size: 14px;
+  text-align: center;
+}
+.weui-loadmore_line {
+  border-top: 1px solid #E5E5E5;
+  margin-top: 2.4em;
+}
