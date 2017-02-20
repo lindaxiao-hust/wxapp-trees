@@ -1,0 +1,40 @@
+.swiper-item {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.icon-item-text {
+  font-size: 20px;
+  font-weight: 400;
+  flex: 1;
+}
+.icon-item-img {
+  width: 64rpx;
+  height: 64rpx;
+  background-color: #fff;
+  margin-left: 10px;
+}
+
+.progress {
+  margin-top: 10px;
+}
+
+.weui-media-box__info {
+  padding-bottom: 0;
+  margin-top: 10px;
+}
+
+.tweet-list-item {
+  padding: 8px 15px;
+}
+
+.text-font-size-normal {
+  font-size: 14px;
+  font-weight: normal;
+}

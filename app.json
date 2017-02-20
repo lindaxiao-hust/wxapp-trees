@@ -7,8 +7,7 @@
     "navigationBarBackgroundColor": "#f8f8f8",
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "树",
-    "backgroundColor": "#f8f8f8",
-    "enablePullDownRefresh": false
+    "backgroundColor": "#F8F8F8"
   },
   "networkTimeout": {
     "request": 10000,

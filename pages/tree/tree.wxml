@@ -1,29 +1,88 @@
-<view class="page">
-  <view calss="page__hd">
-    <view class="page__title">标题</view>
-    <view class="page__desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</view>
-  </view>
-  <view class="page__bd page__bd_spacing">
-    <view class="kind-list">
-      <block wx:for="{{list}}" wx:key="{{item.id}}">
-        <view id="{{item.id}}" class="weui-flex kind-list__item-hd {{item.open ? 'kind-list__item-hd_show' : ''}} " bindtap="kindToggle">
-          <view class="weui-flex__item">{{item.name}}</view>
-          <view class="kind-list__img" src="../../images/wechat.png"></view>
-        </view>
-        <view class="kind-list__item_bd {{item.open ? 'kind-list__item-bd_show' : ''}}">
-          <view class="weui-cells {{item.open ? 'weui-cells_show' : ''}}">
-            <block wx:for="{{item.pages}}" wx:for-item="page" wx:key="*item">
-              <navigator url="/pages/index/index" class="weui-cell weui-cell_access">
-                <view class="weui-cell__bd">{{page}}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-              </navigator>
-            </block>
+<view class="container">
+  <view class="page-body">
+    <view class="page-section" style="margin-bottom: 0;">
+      <swiper indicator-dots="{{true}}" autoplay="{{true}}">
+        <block wx:for="{{plantImgs}}" wx:key="*this" wx:for-item="plantImg">
+          <swiper-item>
+            <image src="{{plantImg}}" class="swiper-item" mode="aspectFill"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="page-section">
+      <view class="weui-panel weui-panel_access">
+        <!-- <view class="weui-panel__hd">大树</view> -->
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <view class="icon-item">
+              <view class="icon-item-text">水蓑衣</view>
+              <image class="icon-item-img" src="{{likeImg}}" bindtap="like"></image>
+            </view>
+            <view class="weui-media-box__desc">草本，高80厘米，茎4棱形，幼枝被白色长柔毛，不久脱落近无毛或无毛；叶近无柄，纸质，长椭圆形、披针形、线形，长4-11.5厘米，宽0.8-1.5厘米，两端渐尖，先端钝，两面被白色长硬毛，背面脉上较密，侧脉不明显。花簇生于叶腋，无梗，苞片披针形，长约10毫米，宽约6.5毫米，基部圆形，外面被柔毛，小苞片细小，线形，外面被柔毛，内面无毛；花萼圆筒状，约长6-8毫米，被短糙毛，5深裂至中部，裂片稍不等大，渐尖，被通常绉曲的长柔毛；花冠淡紫色或粉红色，长1-1.2厘米，被柔毛，上唇卵状三角形，下唇长圆形，喉凸上有疏而长的柔毛，花冠管稍长于裂片；后雄蕊的花药比前雄蕊的小一半。蒴果比宿存萼长1/3-1/4，干时淡褐色，无毛。花期秋季。</view>
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta">已收到100个喜欢</view>
+              <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
+            </view>
           </view>
         </view>
-      </block>
+        <view class="weui-panel__ft">
+            <view class="weui-cell weui-cell_access weui-cell_link">
+                <view class="weui-cell__bd">查看植物详细信息</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </view>
+      </view>
     </view>
-  </view>
-  <view class="page__ft">
-    <image src="../../images/wechatHL.png" style="width: 19px; height: 19px;"></image>
+    <view class="page-section">
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">活动一</view>
+            <view class="weui-media-box__desc">您已成功收集水蓑衣，当前进度 1 / 20</view>
+            <view class="progress weui-progress">
+              <view class="weui-progress__bar">
+                  <progress percent="{{1/20*100}}" />
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-panel__ft">
+          <view class="weui-cell weui-cell_access weui-cell_link">
+            <view class="weui-cell__bd">查看活动详情</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="page-section">
+      <view class="weui-panel weui-panel_access">
+          <view class="weui-panel__bd">
+              <navigator url="" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                      <view class="text-font-size-normal weui-media-box__title">推文一推文一</view>
+                  </view>
+              </navigator>
+              <navigator url="" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                      <view class="text-font-size-normal weui-media-box__title">推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二</view>
+                  </view>
+              </navigator>
+          </view>
+          <view class="weui-panel__ft">
+              <view class="weui-cell weui-cell_access weui-cell_link">
+                  <view class="weui-cell__bd">查看更多推文</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+              </view>
+          </view>
+      </view>
+    </view>
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+          <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__bd">查看评论</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">共100条评论</view>
+          </navigator>
+      </view>
+    </view>
   </view>
 </view>
