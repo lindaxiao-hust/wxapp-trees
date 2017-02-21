@@ -10,14 +10,29 @@
     </view>
     <view class="page-section">
       <view class="activity-trees">再集齐19种植物，你就可以召唤神龙了</view>
-      <view class="weui-grids">
-          <block wx:for="{{trees}}" wx:for-item="{{tree}}" wx:key="{{index}}">
-              <navigator url="" class="weui-grid {{tree.hasCollected === true ? '' : 'weui-grid_active'}}" hover-class="weui-grid_active">
+      <view class="weui-grids" style="padding-bottom: 15px;">
+          <block wx:for="{{trees}}" wx:for-item="tree" wx:key="id">
+              <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+                <block wx:if="{{tree.hasCollected}}">
+                  <view class="img-mask">
+                  </view>
+                  <icon class="img-mask-icon" type="success_no_circle" size="45"/>
+                </block>
                   <image class="activity-tree-img weui-grid__icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487648948239&di=beb6719c5aea6f9a0fdbdbd944d0ae53&imgtype=0&src=http%3A%2F%2Fwww.pp3.cn%2Fuploads%2F201504%2F2015040601.jpg" mode="aspectFill" />
-                  <view class="weui-grid__label">Tree{{tree.id}}</view>
+                <view class="weui-grid__label">Tree{{tree.id}}</view>
               </navigator>
           </block>
       </view>
+    </view>
+    <view class="page-section">
+      <view class="weui-cells weui-cells_after-title">
+            <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">查看活动评论</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                    <view style="display: inline-block;vertical-align:middle; font-size: 17px;">233条</view>
+                </view>
+            </navigator>
+        </view>
     </view>
   </view>
 </view>

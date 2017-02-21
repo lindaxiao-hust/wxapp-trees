@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="page-body">
+    <view class="page-section">
+      <view class="weui-cells" style="margin-top: 0; background-color: #F8F8F8;">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="textarea-wrp">
+                <textarea bindblur="bindTextAreaBlur" auto-height auto-focus="true" placeholder="评价一下水蓑衣吧"/>
+              </view>
+              <view class="weui-uploader">
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files">
+                    <block wx:for="{{imageList}}" wx:for-item="image" wx:key="*this">
+                      <view class="weui-uploader__file" style="position: relative; margin-top: 9px; margin-right: 20px;">
+                        <icon class="img-clear" type="clear" size="15" bindtap="clearImg" data-img-index="{{index}}"/>
+                        <image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="previewImage" mode="aspectFill"></image>
+                      </view>
+                    </block>
+                  </view>
+                  <view class="weui-uploader__input-box" style="margin-top: 9px;">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+    </view>
+    <view class="btn-area">
+      <button type="primary" formType="submit">提交评论</button>
+      <button formType="reset">重置评论</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,10 @@
+textarea {
+  width: 100%;
+  padding: 25rpx 0;
+}
+
+.img-clear {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+}

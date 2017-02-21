@@ -38,3 +38,18 @@
 .activity-tree-img {
   border-radius: 50%;
 }
+.img-mask {
+  background-color: #0BB20C;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity:0.1;
+  filter:alpha(opacity=10);
+}
+.img-mask-icon {
+  position: absolute;
+  top: 17.5px;
+  left: 24px;
+}
