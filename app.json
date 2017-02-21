@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/comment/comment",
+    "pages/activity/activity",
     "pages/tree/tree",
+    "pages/comments/comments",
     "pages/index/index"
   ],
   "window": {

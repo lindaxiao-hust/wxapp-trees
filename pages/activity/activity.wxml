@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="page-body">
+    <view class="page-section">
+      <view class="activity-container">
+        <view class="activity-name">活动一</view>
+        <view class="activity-desc">活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一</view>
+        <view class="activity-info">活动时间：2017/02/21 12:00 - 2017/02/22 00:00</view>
+        <image class="activity-map" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487647652259&di=7771085c46486005e04306e4d2ac996a&imgtype=0&src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201501%2F31%2F20150131211417_FSyFE.jpeg" mode="widthFix"></image>
+      </view>
+    </view>
+    <view class="page-section">
+      <view class="activity-trees">再集齐19种植物，你就可以召唤神龙了</view>
+      <view class="weui-grids">
+          <block wx:for="{{trees}}" wx:for-item="{{tree}}" wx:key="{{index}}">
+              <navigator url="" class="weui-grid {{tree.hasCollected === true ? '' : 'weui-grid_active'}}" hover-class="weui-grid_active">
+                  <image class="activity-tree-img weui-grid__icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487648948239&di=beb6719c5aea6f9a0fdbdbd944d0ae53&imgtype=0&src=http%3A%2F%2Fwww.pp3.cn%2Fuploads%2F201504%2F2015040601.jpg" mode="aspectFill" />
+                  <view class="weui-grid__label">Tree{{tree.id}}</view>
+              </navigator>
+          </block>
+      </view>
+    </view>
+  </view>
+</view>

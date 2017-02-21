@@ -1,0 +1,40 @@
+.activity-container {
+  -webkit-display: flex;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.activity-name {
+  font-weight: 400;
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.activity-desc {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.activity-info {
+  margin-top: 15px;
+  padding-bottom: 5px;
+  font-size: 13px;
+  line-height: 1em;
+}
+
+.activity-map {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.activity-trees {
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 13px;
+  line-height: 1.2em;
+}
+.activity-tree-img {
+  border-radius: 50%;
+}
