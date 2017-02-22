@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tree/tree",
+    "pages/tree-info/tree-info",
     "pages/activity/activity",
     "pages/comments/comments",
     "pages/comment/comment",
@@ -18,5 +19,5 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
-  "debug": true
+  "debug": false
 }

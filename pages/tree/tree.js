@@ -1,4 +1,5 @@
 var qcloud = require("../../bower_components/qcloud-weapp-client-sdk/index.js")
+var config = require("../../config.js")
 var util = require("../../utils/util.js")
 
 Page({
@@ -11,16 +12,20 @@ Page({
     ],
     likeImg : "../../images/like.png",
     liked: false,
-    currentDate: util.getCurrentDate()
+    currentDate: util.getCurrentDate(),
+    //模拟扫码链接，pages/tree/tree?plant_id=plantId&activity_id=activityId
+    plantId: 253,
+    activityId: 6
   },
   onLoad: function() {
-    //登录，建立微信小程序会话
-    qcloud.login({
-      success: function(userInfo) {
-        console.log("login success", userInfo)
+    qcloud.request({
+      login: true,
+      url: config.service.plantRequestUrl + "inactivity/pid=" + this.data.plantId + "&aid=" + this.data.activityId,
+      success: function(response) {
+        console.log(response)
       },
       fail: function(err) {
-        console.log("login fail", err)
+        console.log(err)
       }
     })
   },

@@ -39,6 +39,8 @@ form {
 .page-head {
   padding: 60rpx 50rpx 80rpx;
   text-align: center;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .page-body {
