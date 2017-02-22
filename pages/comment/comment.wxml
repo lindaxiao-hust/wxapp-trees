@@ -1,11 +1,12 @@
 <view class="container">
   <view class="page-body">
+    <form bindsubmit="formSubmit" >
     <view class="page-section">
       <view class="weui-cells" style="margin-top: 0; background-color: #F8F8F8;">
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="textarea-wrp">
-                <textarea bindblur="bindTextAreaBlur" auto-height auto-focus="true" placeholder="评价一下水蓑衣吧"/>
+                <textarea auto-height auto-focus="true" placeholder="评价一下水蓑衣吧" name="textarea"/>
               </view>
               <view class="weui-uploader">
                 <view class="weui-uploader__bd">
@@ -28,7 +29,7 @@
     </view>
     <view class="btn-area">
       <button type="primary" formType="submit">提交评论</button>
-      <button formType="reset">重置评论</button>
     </view>
+  </form>
   </view>
 </view>

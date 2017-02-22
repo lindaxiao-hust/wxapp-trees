@@ -2,7 +2,13 @@
   -webkit-display: flex;
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.activity-info {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .activity-name {
@@ -16,7 +22,7 @@
   line-height: 1.2;
 }
 
-.activity-info {
+.activity-date {
   margin-top: 15px;
   padding-bottom: 5px;
   font-size: 13px;

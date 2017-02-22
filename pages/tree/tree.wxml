@@ -69,10 +69,10 @@
               </navigator>
           </view>
           <view class="weui-panel__ft">
-              <view class="weui-cell weui-cell_access weui-cell_link">
+              <navigator url="../comment/comment" class="weui-cell weui-cell_access weui-cell_link">
                   <view class="weui-cell__bd">查看更多推文</view>
                   <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-              </view>
+              </navigator>
           </view>
       </view>
     </view>
@@ -82,6 +82,11 @@
             <view class="weui-cell__bd">查看活动评论</view>
             <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
                 <view style="display: inline-block;vertical-align:middle; font-size: 17px;">233条</view>
+            </view>
+        </navigator>
+        <navigator url="../comment/comment" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">我要评论</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
             </view>
         </navigator>
         <!-- <navigator url="../comments/comments" class="weui-cell weui-cell_access" hover-class="weui-cell_active">

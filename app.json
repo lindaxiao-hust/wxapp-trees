@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/comment/comment",
     "pages/tree/tree",
     "pages/activity/activity",
     "pages/comments/comments",
+    "pages/comment/comment",
     "pages/index/index"
   ],
   "window": {

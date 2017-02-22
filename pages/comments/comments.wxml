@@ -1,6 +1,6 @@
 <view class="container">
   <block wx:for="{{comments}}" wx:for-item="comment" wx:key="id">
-    <view class="comment-container">
+    <view class="comment-container" hover-class="weui-cell_active">
       <view class="comment-head">
         <image class="comment-avatar" src="{{comment.avatarUrl}}" mode="aspectFill"></image>
         <view class="comment-info">
