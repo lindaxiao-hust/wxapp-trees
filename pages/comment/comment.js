@@ -1,6 +1,16 @@
+var util = require('../../utils/util.js')
+
 Page({
   data: {
     imageList: []
+  },
+  onLoad: function(option) {
+    console.log(option)
+    if(!util.isObjOwnEmpty(option)) {
+      wx.setNavigationBarTitle({
+        title: '回复'+option.userName
+      })
+    }
   },
   chooseImage: function() {
     var that = this

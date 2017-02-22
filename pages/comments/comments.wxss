@@ -19,6 +19,9 @@
   color: #E5E5E5;
   left: 110rpx;
 }
+.comment-container-active {
+  background-color: #fff;
+}
 
 .comment-head {
   display: -webkit-flex;

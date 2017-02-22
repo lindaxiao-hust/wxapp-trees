@@ -8,7 +8,7 @@ Page({
   data: {
     comments: [
       {
-        id: 0,
+        id: -1,
         avatarUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487455584208&di=6c4bfa226385cf59fbd0a10944dc7d5c&imgtype=0&src=http%3A%2F%2Fimg1.gamersky.com%2Fimage2017%2F02%2F20170218_zl_91_8%2Fgamersky_03small_06_2017218205860A.jpg",
         username: "0test测试测试测试测试test测试测试测试测试test测",
         date: "2017/02/20 11:27",
@@ -69,6 +69,12 @@ Page({
     loadmore: false,
     loadend: false
   },
+  // onLoad: function() {
+  //   for(let i = 0; i < this.data.comments.length; i++) {
+  //     console.log(this.data.comments[i])
+  //     this.data.comments[i].tapped = false
+  //   }
+  // },
   onReachBottom: function() {
     //正在加载或已加载完时reachbottom无效
     if(this.data.loadmore === false && this.data.loadend === false) {
@@ -90,5 +96,21 @@ Page({
         that.data.loadmore === false
       }, 5000)
     }
+  },
+  openActionSheet: function(e) {
+    var userName = e.currentTarget.dataset.userName
+    var userId = e.currentTarget.dataset.userId
+    var actionTitle = "回复" + userName
+    wx.showActionSheet({
+      itemList: [actionTitle],
+      success: function(res) {
+        if (!res.cancel) {
+          //选择回复，跳转到评论页面，带要回复的用户身份标识
+          wx.navigateTo({
+            url: '../comment/comment?userId=' + userId + '&userName=' + userName
+          })
+        }
+      }
+    });
   }
 })

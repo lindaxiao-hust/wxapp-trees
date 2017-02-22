@@ -1,3 +1,4 @@
+var qcloud = require("../../bower_components/qcloud-weapp-client-sdk/index.js")
 var util = require("../../utils/util.js")
 
 Page({
@@ -11,6 +12,17 @@ Page({
     likeImg : "../../images/like.png",
     liked: false,
     currentDate: util.getCurrentDate()
+  },
+  onLoad: function() {
+    //登录，建立微信小程序会话
+    qcloud.login({
+      success: function(userInfo) {
+        console.log("login success", userInfo)
+      },
+      fail: function(err) {
+        console.log("login fail", err)
+      }
+    })
   },
   like: function() {
     if(this.data.liked) {
@@ -31,5 +43,17 @@ Page({
       })
     }
     this.data.liked = !this.data.liked
+  },
+  openActionSheet: function(e) {
+    console.log(e)
+    wx.showActionSheet({
+        itemList: ['回复'],
+        success: function(res) {
+            if (!res.cancel) {
+              //选择回复，跳转到评论页面，带要回复的用户身份标识
+                console.log(res.tapIndex)
+            }
+        }
+    });
   }
 })
