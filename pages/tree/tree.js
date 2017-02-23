@@ -18,16 +18,16 @@ Page({
     activityId: 6
   },
   onLoad: function() {
-    qcloud.request({
-      login: true,
-      url: config.service.plantRequestUrl + "inactivity/pid=" + this.data.plantId + "&aid=" + this.data.activityId,
-      success: function(response) {
-        console.log(response)
-      },
-      fail: function(err) {
-        console.log(err)
-      }
-    })
+    // qcloud.request({
+    //   login: true,
+    //   url: config.service.plantRequestUrl + "inactivity/pid=" + this.data.plantId + "&aid=" + this.data.activityId,
+    //   success: function(response) {
+    //     console.log(response)
+    //   },
+    //   fail: function(err) {
+    //     console.log(err)
+    //   }
+    // })
   },
   like: function() {
     if(this.data.liked) {

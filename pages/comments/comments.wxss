@@ -2,7 +2,7 @@
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
-  padding: 30rpx 15rpx 20rpx 15rpx;
+  padding: 30rpx 20rpx 20rpx;
   position: relative;
 }
 .comment-container:first-child::before {
@@ -33,7 +33,7 @@
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
-  margin-right: 15rpx;
+  margin-right: 20rpx;
 }
 
 .comment-info {
@@ -57,13 +57,10 @@
 
 .comment-content {
   display: block;
+  font-size: 14px;
 }
 
 .comment-img {
   width: 40%;
-  margin-top: 10rpx;
-}
-
-.weui-loadmore_dot {
-  margin-bottom: -24rpx;
+  margin-top: 15rpx;
 }

@@ -1,0 +1,21 @@
+.weui-panel {
+  margin-top: 0;
+  background-color: inherit;
+}
+.weui-panel:after {
+  content: " ";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 1px;
+  border-bottom: 1rpx solid #E5E5E5;
+  color: #E5E5E5;
+}
+.weui-panel:last-child::after {
+  display: none;
+}
+
+.weui-cell__bd {
+  font-size: 15px;
+}

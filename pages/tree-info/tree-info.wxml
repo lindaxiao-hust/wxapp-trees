@@ -1,10 +1,13 @@
 <view class="container">
-  <view class="page-head">物种{{treeInfo.species}}</view>
+  <view class="page-head">
+    <view class="tree-info-name">水蓑衣{{treeInfo.species}}</view>
+    <navigator class="weui-cell_link">查看图片</navigator>
+  </view>
   <view class="page-body">
     <block wx:for="{{treeInfoTitles}}" wx:for-item="treeInfoTitle" wx:key="*this">
       <view class="tree-info-container">
         <view class="tree-info-title">{{treeInfoTitle}}：</view>
-        <view class="tree-info-desc">{{treeInfoTitlesKey[index]}}</view>
+        <view class="tree-info-desc">{{treeInfoTitlesKey[index+1]}}</view>
       </view>
     </block>
     <!-- <view>中文名字：{{treeInfo.chName}}</view>

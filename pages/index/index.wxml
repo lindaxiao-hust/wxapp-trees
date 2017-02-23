@@ -1,11 +1,34 @@
-<view class="page">
-  <view class="page__hd">
-    <view class="page__title">ActionSheet</view>
-    <view class="page__desc">弹出式菜单，采用程序原生的actionsheet</view>
-  </view>
-  <view class="page__bd">
-    <view class="weui-btn-area">
-      <button type="primary" bindtap="open">ActionSheet</button>
+<view class="container">
+  <view class="page-head">
+    <view class="project-name">
+      欢迎来到自然教育趣味平台
     </view>
+  </view>
+  <view class="page-body">
+      <block wx:for="{{5}}">
+        <view class="weui-panel weui-panel_access">
+          <!-- <view class="weui-panel__hd">大树</view> -->
+          <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+              <view class="icon-item">
+                <view class="icon-item-text">活动一</view>
+              </view>
+              <view class="weui-media-box__desc">活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一</view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta">活动时间：2017/02/21 12:00 - 2017/02/22 00:00</view>
+              </view>
+            </view>
+          </view>
+          <view class="weui-panel__ft">
+              <navigator url="../activity/activity" class="weui-cell weui-cell_access weui-cell_link">
+                  <view class="weui-cell__bd">查看活动详细信息</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+              </navigator>
+          </view>
+        </view>
+      </block>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
   </view>
 </view>

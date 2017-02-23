@@ -14,7 +14,7 @@
 .activity-name {
   font-weight: 400;
   font-size: 17px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .activity-desc {
@@ -23,22 +23,21 @@
 }
 
 .activity-date {
-  margin-top: 15px;
-  padding-bottom: 5px;
-  font-size: 13px;
+  margin-top: 10px;
+  font-size: 14px;
   line-height: 1em;
 }
 
 .activity-map {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .activity-trees {
-  padding-bottom: 10px;
+  margin-bottom: 15px;
   padding-left: 15px;
   padding-right: 15px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.2em;
 }
 .activity-tree-img {
@@ -56,6 +55,6 @@
 }
 .img-mask-icon {
   position: absolute;
-  top: 17.5px;
-  left: 24px;
+  bottom: 0px;
+  left: 62rpx;
 }

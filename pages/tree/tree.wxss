@@ -8,10 +8,10 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .icon-item-text {
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
   -webkit-flex: 1;
   flex: 1;
@@ -34,9 +34,4 @@
 
 .tweet-list-item {
   padding: 8px 15px;
-}
-
-.text-font-size-normal {
-  font-size: 14px;
-  font-weight: normal;
 }

@@ -1,0 +1,20 @@
+.tree-info-container {
+  padding: 0 15px 15px;
+}
+
+.tree-info-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+navigator {
+  display: inline-block;
+}
+
+.tree-info-title {
+  font-weight: bold;
+}
+
+.tree-info-desc {
+  font-size: 14px;
+}

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/tree/tree",
+    "pages/tweets/tweets",
     "pages/tree-info/tree-info",
     "pages/activity/activity",
     "pages/comments/comments",
