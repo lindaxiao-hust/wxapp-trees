@@ -1,0 +1,7 @@
+.font-strong {
+  font-weight: bold;
+}
+
+.public-img {
+  width: 60%;
+}

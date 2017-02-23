@@ -14,7 +14,7 @@
       <view class="activity-trees">再集齐19种植物，你就可以召唤神龙了</view>
       <view class="weui-grids" style="padding-bottom: 15px;">
           <block wx:for="{{trees}}" wx:for-item="tree" wx:key="id">
-              <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+              <navigator url="../tree/tree" class="weui-grid" hover-class="weui-grid_active">
                 <block wx:if="{{tree.hasCollected}}">
                   <view class="img-mask">
                   </view>

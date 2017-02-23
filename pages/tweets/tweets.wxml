@@ -4,7 +4,7 @@
       <view class="weui-panel">
         <!-- <view class="weui-panel__hd">大树</view> -->
         <view class="weui-panel__bd">
-          <navigator url="https://mp.weixin.qq.com/debug/wxadoc/dev/framework/view/wxss.html" class="weui-media-box weui-media-box_text">
+          <navigator url="../tip/tip" class="weui-media-box weui-media-box_text">
             <view class="text-font-size-normal weui-media-box__title_in-text">标题一标题一标题一标题一标题一标题一标题一标题一标题一标题一</view>
             <view class="weui-media-box__desc">发布时间：2017/02/21 12:000</view>
           </navigator>

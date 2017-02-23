@@ -6,7 +6,8 @@
     "pages/activity/activity",
     "pages/comments/comments",
     "pages/comment/comment",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/tip/tip"
   ],
   "window": {
     "navigationBarBackgroundColor": "#f8f8f8",
