@@ -8,13 +8,13 @@ App({
     */
     qcloud.setLoginUrl(config.service.loginUrl)
     //登录，建立微信小程序会话
-    // qcloud.login({
-    //   success: function(userInfo) {
-    //     console.log("login success", userInfo)
-    //   },
-    //   fail: function(err) {
-    //     console.log("login fail", err)
-    //   }
-    // })
+    qcloud.login({
+      success: function(userInfo) {
+        console.log("login success", userInfo)
+      },
+      fail: function(err) {
+        console.log("login fail", err)
+      }
+    })
   }
 })

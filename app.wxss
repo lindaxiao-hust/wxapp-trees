@@ -37,7 +37,7 @@ form {
 }
 
 .page-head {
-  padding: 50rpx;
+  padding: 60rpx 50rpx 80rpx;
   text-align: center;
 }
 
@@ -130,4 +130,8 @@ image {
 
 .weui-loadmore_dot {
   margin-bottom: -24rpx;
+}
+
+.primary-color {
+  color: #0BB20C;
 }

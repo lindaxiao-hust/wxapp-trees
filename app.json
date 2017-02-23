@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/tree/tree",
     "pages/tweets/tweets",
     "pages/tree-info/tree-info",
     "pages/activity/activity",
     "pages/comments/comments",
     "pages/comment/comment",
-    "pages/index/index",
     "pages/tip/tip"
   ],
   "window": {

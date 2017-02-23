@@ -3,6 +3,7 @@
     <view class="project-name">
       欢迎来到自然教育趣味平台
     </view>
+    <view class="project-desc">介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台</view>
   </view>
   <view class="page-body">
       <block wx:for="{{5}}">

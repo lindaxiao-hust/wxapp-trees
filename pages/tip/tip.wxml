@@ -5,14 +5,14 @@
         </view>
         <view class="weui-msg__text-area">
             <view class="weui-msg__title">友情提示</view>
-            <view class="weui-msg__desc">小程序暂时不支持外部链接，请关注公众号 <text class="font-strong">fanta_1994</text> 获取更多信息，谢谢</view>
+            <view class="weui-msg__desc">小程序暂时不支持外部链接，请关注公众号 <text class="primary-color font-strong">fanta_1994</text> 获取更多信息，谢谢</view>
         </view>
         <view>
             <image class="public-img" src="../../images/fanta_1994.jpg" mode="widthFix"></image>
         </view>
         <view class="weui-msg__extra-area">
             <view class="weui-footer">
-                <view class="weui-footer__text">Copyright © 2017 trees</view>
+                <view class="weui-footer__text">Copyright © 2017 自然教育趣味平台</view>
             </view>
         </view>
     </view>

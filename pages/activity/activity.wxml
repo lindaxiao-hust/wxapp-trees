@@ -7,11 +7,11 @@
           <view class="activity-desc">活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一</view>
           <view class="activity-date">活动时间：2017/02/21 12:00 - 2017/02/22 00:00</view>
         </view>
-        <image class="activity-map" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487648948239&di=beb6719c5aea6f9a0fdbdbd944d0ae53&imgtype=0&src=http%3A%2F%2Fwww.pp3.cn%2Fuploads%2F201504%2F2015040601.jpg" mode="widthFix"></image>
+        <image class="activity-map" src="http://pic4.zhongsou.com/image/4809e7562b8d8d8cf33.jpg" mode="widthFix"></image>
       </view>
     </view>
     <view class="page-section">
-      <view class="activity-trees">再集齐19种植物，你就可以召唤神龙了</view>
+      <view class="activity-trees">再集齐3种植物，你就可以召唤神龙了</view>
       <view class="weui-grids" style="padding-bottom: 15px;">
           <block wx:for="{{trees}}" wx:for-item="tree" wx:key="id">
               <navigator url="../tree/tree" class="weui-grid" hover-class="weui-grid_active">

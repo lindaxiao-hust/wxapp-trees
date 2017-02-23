@@ -45,6 +45,8 @@ Page({
     console.log(this.data.imageList)
     if(e.detail.value.textarea === "" && this.data.imageList.length === 0) {
       console.log("请填写评论内容")
+    } else {
+      
     }
   }
 })

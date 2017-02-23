@@ -1,43 +1,73 @@
+var util = require('../../utils/util.js')
+var treeInfoTitles = {
+  plantId: "植物id",
+  species: "物种",
+  chName: "中文名",
+  otherName: "别名",
+  enName: "英文名",
+  latName: "拉丁学名",
+  phylum: "门名称",
+  biologyClass: "纲名称",
+  superOrder: "超目名称",
+  biologyOrder: "目名称",
+  family: "科名称",
+  familyLat: "科的拉丁名",
+  genus: "属",
+  genusLat: "属的拉丁名",
+  variety: "变种",
+  cultivar: "品种",
+  growthHabit: "生长习性(1、乔木2、灌木3、一年生草本4、二年生草本5、多年生草本6、藤本)",
+  growthHabit2: "生长习性2（1、常绿2、落叶3、半常绿）",
+  ecolHabit: "生态习性3（1、陆生2、湿生3、水生4、寄生）",
+  florescence: "花期",
+  fruitPeriod: "果期",
+  feature: "形态学特征",
+  habitat: "生活环境",
+  distribution: "分布",
+  ecoValue: "应用价值",
+  cultures: "植物文化",
+  plantLink: "植物专业分类详细信息链接",
+  qrCode: "植物基本信息二维码的路径",
+  createTime: "创建时间",
+  pictures: "该plant对应的图片信息",
+  pictureLinks: "该plant对应的图片超链接（用于小程序端）"
+}
+
 Page({
   data: {
-    treeInfo: {
-      species: "species",
-      chName: "chName",
-      otherName: "otherName",
-      enName: "enName",
-      latName: "latName",
-      phylum: "phylum",
-      biologyClass: "biologyClass",
-      superOrder: "superOrder",
-      biologyOrder: "biologyOrder",
-      family: "family",
-      familyLat: "familyLat",
-      genus: "genus",
-      genusLat: "genusLat",
-      variety: "variety",
-      cultivar: "cultivar",
-      growthHabit: "growthHabit",
-      growthHabit2: "growthHabit2",
-      ecolHabit: "ecolHabit",
-      florescence: "florescence",
-      fruitPeriod: "fruitPeriod",
-      feature: "feature",
-      habitat: "habitat",
-      distribution: "distribution",
-      ecoValue: "ecoValue",
-      cultures: ["cultures"],
-      plantLink: "plantLink",
-      qrCode: "qrCode",
-      createTime: "createTime",
-      pictures: ["pictures"],
-      pictureLinks: ["pictureLinks"]
-    },
-    treeInfoTitlesKey: [],
-    treeInfoTitles: ["中文名字", "别名", "英文名", "拉丁学名", "门名称", "纲", "超目", "目", "科", "科的拉丁名", "属", "属的拉丁名", "变种", "品种", "生长习性(1、乔木2、灌木3、一年生草本4、二年生草本5、多年生草本6、藤本)", "生长习性2（1、常绿2、落叶3、半常绿）", "生态习性3（1、陆生2、湿生3、水生4、寄生）", "花期", "果期", "生态学特征", "生活环境", "分布", "应用价值", "植物文化", "植物专业分类详细信息链接", "植物基本信息二维码的路径", "创建时间", "该plant对应的图片信息", "该plant对应的图片超链接（用于小程序端）"]
+    treeInfoTitleArray: [],//存放植物名列表
+    treeInfoArray: []//存放植物信息列表
   },
-  onLoad: function() {
+  onLoad: function(option) {
+    var treeInfo = JSON.parse(option.treeInfo)
+    var key = null
+    var treeInfoArrayTmp = []
+    var treeInfoTitleArrayTmp = []
+    for(key in treeInfoTitles) {
+      if(key !== 'plantId' && key !== 'pictures' && key !== 'pictureLinks' && key !== 'cultures' && key !== 'qrCode' && key !== 'species') {
+        treeInfoTitleArrayTmp.push(treeInfoTitles[key])
+        // if(util.isObjOwnEmpty(treeInfo[key]) || treeInfo[key] === "") {
+        //   treeInfo[key] = "暂无相关信息"
+        // }
+        if(key === 'createTime') {
+          var date = new Date(treeInfo[key])
+          Y = date.getFullYear() + '-';
+M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+D = date.getDate() + ' ';
+h = date.getHours() + ':';
+m = date.getMinutes() + ':';
+s = date.getSeconds();
+          treeInfo[key] = Y+M+D+h+m+s
+        }
+        treeInfoArrayTmp.push(treeInfo[key])
+      }
+    }
+    console.log(treeInfoArrayTmp);
+    console.log(treeInfoTitleArrayTmp);
     this.setData({
-      treeInfoTitlesKey: Object.keys(this.data.treeInfo)
+      species: treeInfo['species'],
+      treeInfoTitleArray: treeInfoTitleArrayTmp,
+      treeInfoArray: treeInfoArrayTmp
     })
   }
 })

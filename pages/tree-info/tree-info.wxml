@@ -1,43 +1,14 @@
 <view class="container">
   <view class="page-head">
-    <view class="tree-info-name">水蓑衣{{treeInfo.species}}</view>
+    <view class="tree-info-name">{{species}}</view>
     <navigator class="weui-cell_link">查看图片</navigator>
   </view>
   <view class="page-body">
-    <block wx:for="{{treeInfoTitles}}" wx:for-item="treeInfoTitle" wx:key="*this">
+    <block wx:for="{{treeInfoTitleArray}}" wx:for-item="treeInfoTitle" wx:key="*this">
       <view class="tree-info-container">
         <view class="tree-info-title">{{treeInfoTitle}}：</view>
-        <view class="tree-info-desc">{{treeInfoTitlesKey[index+1]}}</view>
+        <view class="tree-info-desc">{{treeInfoArray[index]}}</view>
       </view>
     </block>
-    <!-- <view>中文名字：{{treeInfo.chName}}</view>
-    <view>别名：{{treeInfo.otherName}}</view>
-    <view>英文名：{{treeInfo.enName}}</view>
-    <view>拉丁学名：{{treeInfo.latName}}</view>
-    <view>门名称：{{treeInfo.phylum}}</view>
-    <view>纲：{{treeInfo.biologyClass}}</view>
-    <view>超目：{{treeInfo.superOrder}}</view>
-    <view>目：{{treeInfo.biologyOrder}}</view>
-    <view>科：{{treeInfo.family}}</view>
-    <view>科的拉丁名：{{treeInfo.familyLat}}</view>
-    <view>属：{{treeInfo.genus}}</view>
-    <view>属的拉丁名：{{treeInfo.genusLat}}</view>
-    <view>变种：{{treeInfo.variety}}</view>
-    <view>品种：{{treeInfo.cultivar}}</view>
-    <view>生长习性(1、乔木2、灌木3、一年生草本4、二年生草本5、多年生草本6、藤本)：{{treeInfo.growthHabit}}</view>
-    <view>生长习性2（1、常绿2、落叶3、半常绿）：{{treeInfo.growthHabit2}}</view>
-    <view>生态习性3（1、陆生2、湿生3、水生4、寄生）：{{treeInfo.ecolHabit}}</view>
-    <view>花期：{{treeInfo.florescence}}</view>
-    <view>果期：{{treeInfo.fruitPeriod}}</view>
-    <view>生态学特征：{{treeInfo.feature}}</view>
-    <view>生活环境：{{treeInfo.habitat}}</view>
-    <view>分布：{{treeInfo.distribution}}</view>
-    <view>应用价值：{{treeInfo.ecoValue}}</view>
-    <view>植物文化：{{treeInfo.cultures}}</view>
-    <view>植物专业分类详细信息链接：{{treeInfo.plantLink}}</view>
-    <view>植物基本信息二维码的路径：{{treeInfo.qrCode}}</view>
-    <view>创建时间：{{treeInfo.createTime}}</view>
-    <view>该plant对应的图片信息：{{treeInfo.pictures}}</view>
-    <view>该plant对应的图片超链接（用于小程序端）：{{treeInfo.pictureLinks}}</view> -->
   </view>
 </view>

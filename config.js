@@ -15,9 +15,18 @@ var config = {
     // 植物相关请求地址
     plantRequestUrl: `https://${host}/plant/`,
 
-    // 测试的信道服务地址
-    tunnelUrl: `https://${host}/tunnel`,
-  }
+    // 点赞相关请求地址
+    likesRequestUrl: `https://${host}/likes/`,
+
+    // 活动相关请求地址
+    activityRequestUrl: `https://${host}/activity/`,
+  },
+  likesType: {
+    likePlantPoint: 0,
+    likeActivity: 1,
+    likePlant: 2
+  },
+  requestHeader: 'application/json'
 };
 
 module.exports = config;
