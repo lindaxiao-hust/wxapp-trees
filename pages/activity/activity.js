@@ -1,58 +1,33 @@
 var qcloud = require("../../bower_components/qcloud-weapp-client-sdk/index.js")
-var config = require("../../config")
+var config = require("../../config.js")
+var util = require("../../utils/util.js")
 
 Page({
   data: {
-      trees: [
-        {
-          id: 1,
-          hasCollected: true
-        },
-        {
-          id: 2,
-          hasCollected: false
-        },
-        {
-          id: 3,
-          hasCollected: true
-        },
-        {
-          id: 4,
-          hasCollected: true
-        },
-        {
-          id: 5,
-          hasCollected: true
-        },
-        {
-          id: 6,
-          hasCollected: false
-        },
-        {
-          id: 7,
-          hasCollected: true
-        },
-        {
-          id: 8,
-          hasCollected: true
-        },
-        {
-          id: 10,
-          hasCollected: false
-        },
-        {
-          id: 11,
-          hasCollected: true
-        },
-      ]
+    host: 'https://' + config.service.host,
+    startTime: '',
+    endTime: '',
+    mapName: '',
+    activityInfo: {},
+    plantPointTotalNum: 0,
+    hasCollectPlantPointNum: 0
   },
   onLoad: function(option) {
-    console.log(option);
+    console.log('*****************'+this.data.host);
+    var that = this
     qcloud.request({
       login: true,
       url: config.service.activityRequestUrl + 'detail/aid=' + option.activityId,
       success: function(response) {
         console.log(response);
+        var activityInfo = response.data.activityInfo
+        that.setData({
+          activityInfo: activityInfo,
+          startTime: util.formatDateTime(activityInfo.startTime),
+          endTime: util.formatDateTime(activityInfo.endTime),
+          plantPointTotalNum: response.data.plantPointTotalNum,
+          hasCollectPlantPointNum: response.data.hasCollectPlantPointNum
+        })
       },
       fail: function(err) {
         console.log(err);

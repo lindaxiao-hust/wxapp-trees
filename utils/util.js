@@ -34,8 +34,20 @@ function formatTime(time) {
   }).join(':')
 }
 
+function formatDateTime(time) {
+  var date = new Date(1487299020000)
+  var Y = date.getFullYear() + '-'
+  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-'
+  var D = date.getDate() + ' '
+  var h  = (date.getHours() + 1 > 10 ? date.getHours() : '0' + date.getHours()) + ':'
+  var m = (date.getMinutes() + 1 > 10 ? date.getMinutes() : '0' + date.getMinutes())
+  // var s = date.getSeconds() + 1 > 10 ? date.getSeconds() : '0' + date.getSeconds()
+  return Y + M + D + h + m
+}
+
 module.exports = {
   getCurrentDate: getCurrentDate,
   isObjOwnEmpty: isObjOwnEmpty,
-  formatTime: formatTime
+  formatTime: formatTime,
+  formatDateTime: formatDateTime
 }

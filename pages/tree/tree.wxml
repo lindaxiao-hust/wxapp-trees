@@ -1,101 +1,106 @@
 <view class="container">
-  <view class="page-body">
-    <view class="page-section" style="margin-bottom: 0;">
-      <block wx:if="{{plantImgs.length !== 0}}">
-        <swiper indicator-dots="{{true}}" autoplay="{{true}}" bindtap="showPlantImgs">
-          <block wx:for="{{plantImgs}}" wx:key="*this" wx:for-item="plantImg">
-            <swiper-item>
-              <image src="{{plantImg}}" class="swiper-item" mode="aspectFill"></image>
-            </swiper-item>
-          </block>
-        </swiper>
-      </block>
-    </view>
-    <view class="page-section">
-      <view class="weui-panel weui-panel_access">
-        <!-- <view class="weui-panel__hd">大树</view> -->
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="icon-item">
-              <view class="icon-item-text">{{species}}</view>
-              <image class="icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
-            </view>
-            <view class="weui-media-box__desc">{{feature}}</view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta">已收到{{likesCount}}个喜欢</view>
-              <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
-            </view>
-          </view>
-        </view>
-        <view class="weui-panel__ft">
-            <navigator url="../tree-info/tree-info?treeInfo={{treeInfo}}" class="weui-cell weui-cell_access weui-cell_link">
-                <view class="weui-cell__bd">查看植物详细信息</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
-        </view>
+  <block wx:if="{{dataLoaded}}">
+    <view class="page-body">
+      <view class="page-section" style="margin-bottom: 0;">
+        <block wx:if="{{plantImgs.length !== 0}}">
+          <swiper indicator-dots="{{true}}" autoplay="{{true}}" bindtap="showPlantImgs">
+            <block wx:for="{{plantImgs}}" wx:key="*this" wx:for-item="plantImg">
+              <swiper-item>
+                <image src="{{plantImg}}" class="swiper-item" mode="aspectFill"></image>
+              </swiper-item>
+            </block>
+          </swiper>
+        </block>
       </view>
-    </view>
-    <view class="page-section">
-      <view class="weui-panel weui-panel_access">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">活动一</view>
-            <view class="weui-media-box__desc">您已成功收集{{species}}，当前进度 {{hasCollectPlantPointNum}} / {{plantPointTotalNum}}</view>
-            <view class="progress weui-progress">
-              <view class="weui-progress__bar">
-                  <progress percent="{{hasCollectPlantPointNum/plantPointTotalNum*100}}" />
+      <view class="page-section">
+        <view class="weui-panel weui-panel_access">
+          <!-- <view class="weui-panel__hd">大树</view> -->
+          <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+              <view class="icon-item">
+                <view class="icon-item-text">{{species}}</view>
+                <image class="icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
+              </view>
+              <view class="weui-media-box__desc">{{feature}}</view>
+              <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta">已收到{{likesCount}}个喜欢</view>
+                <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
               </view>
             </view>
           </view>
-        </view>
-        <view class="weui-panel__ft">
-          <navigator url="../activity/activity?activityId={{activityId}}" class="weui-cell weui-cell_access weui-cell_link">
-            <view class="weui-cell__bd">查看活动详情</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-          </navigator>
-        </view>
-      </view>
-    </view>
-    <view class="page-section">
-      <view class="weui-panel weui-panel_access">
-          <view class="weui-panel__bd">
-              <navigator url="../tip/tip" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                      <view class="text-font-size-normal weui-media-box__title">推文一推文一</view>
-                  </view>
-              </navigator>
-              <navigator url="../tip/tip" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                  <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                      <view class="text-font-size-normal weui-media-box__title">推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二</view>
-                  </view>
-              </navigator>
-          </view>
           <view class="weui-panel__ft">
-              <navigator url="../tweets/tweets" class="weui-cell weui-cell_access weui-cell_link">
-                  <view class="weui-cell__bd">查看更多推文</view>
+              <navigator url="../tree-info/tree-info?treeInfo={{treeInfo}}" class="weui-cell weui-cell_access weui-cell_link">
+                  <view class="weui-cell__bd">查看植物详细信息</view>
                   <view class="weui-cell__ft weui-cell__ft_in-access"></view>
               </navigator>
           </view>
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="weui-panel weui-panel_access">
+          <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+              <view class="weui-media-box__title weui-media-box__title_in-text">活动一</view>
+              <view class="weui-media-box__desc">您已成功收集{{species}}，当前进度 {{hasCollectPlantPointNum}} / {{plantPointTotalNum}}</view>
+              <view class="progress weui-progress">
+                <view class="weui-progress__bar">
+                    <progress percent="{{hasCollectPlantPointNum/plantPointTotalNum*100}}" />
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="weui-panel__ft">
+            <navigator url="../activity/activity?activityId={{activityId}}" class="weui-cell weui-cell_access weui-cell_link">
+              <view class="weui-cell__bd">查看活动详情</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+          </view>
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+                <navigator url="../tip/tip" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="text-font-size-normal weui-media-box__title">推文一推文一</view>
+                    </view>
+                </navigator>
+                <navigator url="../tip/tip" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="text-font-size-normal weui-media-box__title">推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二推文二</view>
+                    </view>
+                </navigator>
+            </view>
+            <view class="weui-panel__ft">
+                <navigator url="../tweets/tweets" class="weui-cell weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd">查看更多推文</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+            </view>
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="weui-cells weui-cells_after-title">
+          <navigator url="../comments/comments" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__bd text-font-size-normal">查看活动评论</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                  <view style="display: inline-block;vertical-align:middle; font-size: 15px;">233条</view>
+              </view>
+          </navigator>
+          <navigator url="../comment/comment" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__bd text-font-size-normal">我要评论</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+              </view>
+          </navigator>
+          <!-- <navigator url="../comments/comments" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__bd">查看评论</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">共100条评论</view>
+          </navigator> -->
+        </view>
       </view>
     </view>
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-        <navigator url="../comments/comments" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd text-font-size-normal">查看活动评论</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
-                <view style="display: inline-block;vertical-align:middle; font-size: 15px;">233条</view>
-            </view>
-        </navigator>
-        <navigator url="../comment/comment" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd text-font-size-normal">我要评论</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
-            </view>
-        </navigator>
-        <!-- <navigator url="../comments/comments" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-            <view class="weui-cell__bd">查看评论</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access">共100条评论</view>
-        </navigator> -->
-      </view>
-    </view>
-  </view>
+  </block>
+  <block wx:else>
+    <view>aaaaa</view>
+  </block>
 </view>

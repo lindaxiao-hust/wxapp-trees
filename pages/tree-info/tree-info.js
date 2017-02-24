@@ -36,7 +36,8 @@ var treeInfoTitles = {
 Page({
   data: {
     treeInfoTitleArray: [],//存放植物名列表
-    treeInfoArray: []//存放植物信息列表
+    treeInfoArray: [],//存放植物信息列表
+    treeCultureArray: []//存放植物文化列表
   },
   onLoad: function(option) {
     var treeInfo = JSON.parse(option.treeInfo)
@@ -46,18 +47,11 @@ Page({
     for(key in treeInfoTitles) {
       if(key !== 'plantId' && key !== 'pictures' && key !== 'pictureLinks' && key !== 'cultures' && key !== 'qrCode' && key !== 'species') {
         treeInfoTitleArrayTmp.push(treeInfoTitles[key])
-        // if(util.isObjOwnEmpty(treeInfo[key]) || treeInfo[key] === "") {
-        //   treeInfo[key] = "暂无相关信息"
-        // }
+        if(treeInfo[key] === "") {
+          treeInfo[key] = "暂无相关信息"
+        }
         if(key === 'createTime') {
-          var date = new Date(treeInfo[key])
-          Y = date.getFullYear() + '-';
-M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-D = date.getDate() + ' ';
-h = date.getHours() + ':';
-m = date.getMinutes() + ':';
-s = date.getSeconds();
-          treeInfo[key] = Y+M+D+h+m+s
+          treeInfo[key] = util.formatDateTime(treeInfo[key])
         }
         treeInfoArrayTmp.push(treeInfo[key])
       }
@@ -67,7 +61,9 @@ s = date.getSeconds();
     this.setData({
       species: treeInfo['species'],
       treeInfoTitleArray: treeInfoTitleArrayTmp,
-      treeInfoArray: treeInfoArrayTmp
+      treeInfoArray: treeInfoArrayTmp,
+      treeCultureArray: treeInfo.cultures
     })
+    console.log(this.data.treeCultureArray);
   }
 })

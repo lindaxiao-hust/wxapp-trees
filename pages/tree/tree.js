@@ -8,9 +8,11 @@ var activityId = 6
 
 var plantInfos = null
 var likesType = 0
+var requestUrl, successMsg, failMsg
 
 Page({
   data: {
+    dataLoaded: false,//判断页面数据是否成功加载
     plantImgs: [],//当前植物的图片列表
     currentDate: util.getCurrentDate(),
     tweetInfoList: []
@@ -38,65 +40,61 @@ Page({
       },
       fail: function(err) {
         console.log(err)
+      },
+      complete: function() {
+        that.setData({
+          dataLoaded: true
+        })
       }
     })
   },
+  //点赞的处理
   like: function() {
-    if(this.data.liked) {
-      wx.showToast({
-         title: "您不喜欢这棵树",
-         icon: "success"
-      })
-      //取消赞
-      console.log(plantInfos.plantPoint.plantPointId);
-      console.log(config.likesType.likePlantPoint);
-      qcloud.request({
-        login: true,
-        url: config.service.likesRequestUrl + 'cancel',
-        data: {
-          foreignId: plantInfos.plantPoint.plantPointId,
-          likesType: config.likesType.likePlantPoint
-        },
-        header: {
-          'content-type': config.requestHeader
-        },
-        method: 'POST',
-        success: function(res) {
-          console.log(res.data);
-        },
-        fail: function(err) {
-          console.log(err);
-        }
-      })
-    } else {
-      wx.showToast({
-         title: "您喜欢这棵树",
-         icon: "success"
-      })
-      //点赞
-      console.log(plantInfos.plantPoint.plantPointId);
-      console.log(config.likesType.likePlantPoint);
-      qcloud.request({
-        login: true,
-        url: config.service.likesRequestUrl + 'add',
-        data: {
-          foreignId: plantInfos.plantPoint.plantPointId,
-          likesType: config.likesType.likePlantPoint
-        },
-        header: {
-          'content-type': config.requestHeader
-        },
-        method: 'POST',
-        success: function(res) {
-          console.log(res.data);
-        },
-        fail: function(err) {
-          console.log(err);
-        }
-      })
-    }
     this.setData({
       liked: !this.data.liked
+    })
+    //对点赞的处理基于当前的点赞状态
+    console.log(plantInfos.plantPoint.plantPointId);
+    console.log(config.likesType.likePlantPoint);
+    if(plantInfos.isLike) {
+      //取消赞
+      requestUrl = config.service.likesRequestUrl + 'cancel'
+      successMsg = "成功取消此赞"
+      failMsg = "取消此赞失败"
+    } else {
+      requestUrl = config.service.likesRequestUrl + 'add'
+      successMsg = "成功点赞"
+      failMsg = "点赞失败"
+    }
+    //与服务器进行交互
+    qcloud.request({
+      login: true,
+      url: requestUrl,
+      data: {
+        foreignId: plantInfos.plantPoint.plantPointId,
+        likesType: config.likesType.likePlantPoint
+      },
+      header: {
+        'content-type': config.requestHeader
+      },
+      method: 'POST',
+      success: function(res) {
+        console.log(res.data);
+        wx.showToast({
+           title: successMsg,
+           icon: "success"
+        })
+      },
+      fail: function(err) {
+        console.log(err);
+        wx.showToast({
+          title: failMsg,
+          icon: "warn"
+        })
+        this.setData({
+          liked: !this.data.liked
+        })
+      }
     })
   },
   showPlantImgs: function() {

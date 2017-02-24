@@ -18,3 +18,17 @@ navigator {
 .tree-info-desc {
   font-size: 14px;
 }
+
+
+.culture-container {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1rpx solid #E5E5E5;
+}
+.culture-container:last-child {
+  border-bottom: none;
+}
+
+.culture-info {
+  margin-bottom: 5px;
+}

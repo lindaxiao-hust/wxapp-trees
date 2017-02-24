@@ -10,5 +10,15 @@
         <view class="tree-info-desc">{{treeInfoArray[index]}}</view>
       </view>
     </block>
+    <view class="tree-info-container">
+      <view class="tree-info-title">植物文化：</view>
+      <block wx:for="{{treeCultureArray}}" wx:for-item="treeCulture" wx:key="*this">
+        <view class="culture-container">
+          <view class="tree-info-desc culture-info">{{treeCulture.description}}</view>
+          <view class="tree-info-desc culture-info">来源：{{treeCulture.workName}}</view>
+          <view class="tree-info-desc culture-info">相关引用：{{treeCulture.quote}}</view>
+        </view>
+      </block>
+    </view>
   </view>
 </view>

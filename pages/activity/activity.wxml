@@ -3,15 +3,15 @@
     <view class="page-section">
       <view class="activity-container">
         <view class="activity-info">
-          <view class="activity-name">活动一</view>
-          <view class="activity-desc">活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一活动一</view>
-          <view class="activity-date">活动时间：2017/02/21 12:00 - 2017/02/22 00:00</view>
+          <view class="activity-name">{{activityInfo.activityName}}</view>
+          <view class="activity-desc">{{activityInfo.description}}</view>
+          <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
         </view>
-        <image class="activity-map" src="http://pic4.zhongsou.com/image/4809e7562b8d8d8cf33.jpg" mode="widthFix"></image>
+        <image class="activity-map" src="{{host}}{{activityInfo.mapName}}" mode="widthFix"></image>
       </view>
     </view>
     <view class="page-section">
-      <view class="activity-trees">再集齐3种植物，你就可以召唤神龙了</view>
+      <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
       <view class="weui-grids" style="padding-bottom: 15px;">
           <block wx:for="{{trees}}" wx:for-item="tree" wx:key="id">
               <navigator url="../tree/tree" class="weui-grid" hover-class="weui-grid_active">
