@@ -9,9 +9,11 @@ var activityId = 6
 var plantInfos = null
 var likesType = 0
 var requestUrl, successMsg, failMsg
+var plantImgUrls = []//当前植物的图片地址列表
 
 Page({
   data: {
+    host: 'https://' + config.service.host,
     dataLoaded: false,//判断页面数据是否成功加载
     plantImgs: [],//当前植物的图片列表
     currentDate: util.getCurrentDate(),
@@ -25,6 +27,12 @@ Page({
       success: function(response) {
         console.log(response)
         plantInfos = response.data
+        //到处图片链接数组
+        var pictures = plantInfos.plantInfo.pictures
+        for(let index in pictures) {
+          plantImgUrls.push(that.data.host + pictures[index].pictureName)
+        }
+        console.log(plantImgUrls);
         that.setData({
           activityId: activityId,
           hasCollectPlantPointNum: plantInfos.hasCollectPlantPointNum,
@@ -33,7 +41,7 @@ Page({
           likesCount: plantInfos.likesCount,
           //plantInfo
           treeInfo: JSON.stringify(plantInfos.plantInfo),
-          plantImgs: plantInfos.plantInfo.pictureLinks,
+          plantImgs: pictures,
           species: plantInfos.plantInfo.species,
           feature: plantInfos.plantInfo.feature
         })
@@ -75,7 +83,7 @@ Page({
         likesType: config.likesType.likePlantPoint
       },
       header: {
-        'content-type': config.requestHeader
+        'content-type': 'application/json'
       },
       method: 'POST',
       success: function(res) {
@@ -100,7 +108,7 @@ Page({
   showPlantImgs: function() {
     wx.previewImage({
       // current: 'String', // 当前显示图片的链接，不填则默认为 urls 的第一张
-      urls: this.data.plantImgs,
+      urls: plantImgUrls
     })
   }
 })

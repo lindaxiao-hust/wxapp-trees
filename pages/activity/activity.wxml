@@ -13,15 +13,15 @@
     <view class="page-section">
       <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
       <view class="weui-grids" style="padding-bottom: 15px;">
-          <block wx:for="{{trees}}" wx:for-item="tree" wx:key="id">
+          <block wx:for="{{plantPointInfoList}}" wx:for-item="plantPointInfo" wx:key="*this">
               <navigator url="../tree/tree" class="weui-grid" hover-class="weui-grid_active">
-                <block wx:if="{{tree.hasCollected}}">
+                <block wx:if="{{plantPointInfo.isCollection}}">
                   <view class="img-mask">
                   </view>
                   <icon class="img-mask-icon" type="success_no_circle" size="20"/>
                 </block>
-                  <image class="activity-tree-img weui-grid__icon" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1487648948239&di=beb6719c5aea6f9a0fdbdbd944d0ae53&imgtype=0&src=http%3A%2F%2Fwww.pp3.cn%2Fuploads%2F201504%2F2015040601.jpg" mode="aspectFill" />
-                <view class="weui-grid__label">Tree{{tree.id}}</view>
+                  <image class="activity-tree-img weui-grid__icon" src="{{plantPointInfo.plantPic}}" mode="aspectFill" />
+                <view class="weui-grid__label">{{plantPointInfo.plantName}}</view>
               </navigator>
           </block>
       </view>

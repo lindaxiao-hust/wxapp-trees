@@ -20,13 +20,15 @@ var config = {
 
     // 活动相关请求地址
     activityRequestUrl: `https://${host}/activity/`,
+
+    // 评论相关请求地址
+    messageRequestUrl: `https://${host}/message/`
   },
   likesType: {
     likePlantPoint: 0,
     likeActivity: 1,
     likePlant: 2
-  },
-  requestHeader: 'application/json'
+  }
 };
 
 module.exports = config;

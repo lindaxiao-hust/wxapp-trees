@@ -1,4 +1,9 @@
 var util = require('../../utils/util.js')
+var config = require('../../config')
+var qcloud = require('../../bower_components/qcloud-weapp-client-sdk/index.js')
+
+var foreignId = 0//评论对象的id
+
 
 Page({
   data: {
@@ -46,7 +51,26 @@ Page({
     if(e.detail.value.textarea === "" && this.data.imageList.length === 0) {
       console.log("请填写评论内容")
     } else {
-      
+      console.log(config.service.messageRequestUrl + 'add');
+      wx.uploadFile({
+        url: config.service.messageRequestUrl + 'add',
+        filePath: this.data.imageList[0],
+        name:'msgPic',
+        formData: {
+          foreignId: 1,
+          type: 0,
+          messageContent: e.detail.value.textarea
+        },
+        success: function(res){
+          console.log(res);
+        },
+        fail: function(err) {
+          console.log(err);
+        },
+        complete: function() {
+          // complete
+        }
+      })
     }
   }
 })

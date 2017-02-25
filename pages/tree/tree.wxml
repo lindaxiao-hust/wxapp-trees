@@ -6,7 +6,7 @@
           <swiper indicator-dots="{{true}}" autoplay="{{true}}" bindtap="showPlantImgs">
             <block wx:for="{{plantImgs}}" wx:key="*this" wx:for-item="plantImg">
               <swiper-item>
-                <image src="{{plantImg}}" class="swiper-item" mode="aspectFill"></image>
+                <image src="{{host + plantImg.pictureName}}" class="swiper-item" mode="aspectFill"></image>
               </swiper-item>
             </block>
           </swiper>
