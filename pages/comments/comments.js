@@ -53,7 +53,9 @@ Page({
           var messageInfoListTmp = response.data.messageInfoList
           for(let index in messageInfoListTmp) {
             messageInfoListTmp[index].createTime = util.formatDateTime(messageInfoListTmp[index].createTime)
-            messageInfoListTmp[index].picture = config.service.httpsHost + messageInfoListTmp[index].picture
+            if(messageInfoListTmp[index].picture !== undefined) {
+              messageInfoListTmp[index].picture = config.service.httpsHost +  messageInfoListTmp[index].picture
+            }
           }
           that.setData({
             messageInfoList: that.data.messageInfoList.concat(messageInfoListTmp),

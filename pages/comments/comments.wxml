@@ -17,7 +17,7 @@
           </view>
           <view class="comment-body">
             <text class="comment-content">{{messageInfo.toUserId ? '回复'+messageInfo.toUserName+'：' : ''}}{{messageInfo.messageContent}}</text>
-            <image wx:if="{{messageInfo.picture}}" class="comment-img" src="{{messageInfo.picture}}" mode="widthFix"></image>
+            <image wx:if="{{messageInfo.picture !== undefined}}" class="comment-img" src="{{messageInfo.picture}}" mode="widthFix"></image>
           </view>
         </view>
       </block>

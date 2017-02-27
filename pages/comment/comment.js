@@ -161,9 +161,26 @@ Page({
               method: 'POST',
               success: function(res){
                 console.log(res);
+                wx.showToast({
+                  title: that.globalData.successMsg,
+                  icon: 'success'
+                })
+                wx.redirectTo({
+                  url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
+                  fail: function(err) {
+                    wx.showToast({
+                      title: '跳转页面失败' + err,
+                      icon: 'warn'
+                    })
+                  }
+                })
               },
               fail: function(err) {
                 console.log(err);
+                wx.showToast({
+                  title: that.globalData.failMsg,
+                  icon: 'warn'
+                })
               }
             })
           }

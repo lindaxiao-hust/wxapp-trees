@@ -10,7 +10,10 @@
             </view>
             <!-- <view class="activity-name">{{activityInfo.activityName}}</view> -->
             <view class="activity-desc">{{activityInfo.description}}</view>
-            <view class="activity-desc">已收到{{likesCount}}个喜欢</view>
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta">已收到{{likesCount}}个喜欢</view>
+              <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
+            </view>
             <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
           </view>
           <image class="activity-map" src="{{host}}{{activityInfo.mapName}}" mode="widthFix"></image>

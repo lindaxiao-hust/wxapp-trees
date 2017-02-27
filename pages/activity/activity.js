@@ -3,12 +3,16 @@ var config = require("../../config.js")
 var util = require("../../utils/util.js")
 
 Page({
+  globalData: {
+    requestUrl: ''
+  },
   data: {
     host: config.service.httpsHost,
     dataLoadStatus: 'loading',//判断页面数据是否加载状态
     commentType: config.commentType.commentActivity,
     liked: false,//记录点赞状态
-    activityId: 0
+    activityId: 0,
+    currentDate: util.getCurrentDate(),
   },
   onLoad: function(option) {
     console.log(option);
