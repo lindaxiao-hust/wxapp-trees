@@ -1,11 +1,11 @@
 <view class="container">
-  <view class="page-body">
-    <block wx:if="{{messageTotalNumInit === 0}}">
-      <view class="weui-loadmore weui-loadmore_line">
-        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">当前暂无评论</view>
-      </view>
-    </block>
-    <block wx:else>
+  <block wx:if="{{messageTotalNumInit === 0}}">
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">当前暂无评论</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="page-body">
       <block wx:for="{{messageInfoList}}" wx:for-item="messageInfo" wx:key="*this">
         <view class="comment-container" data-user-name="{{messageInfo.fromUserName}}" data-user-id="{{messageInfo.fromUserId}}" bindtap="openActionSheet">
           <view class="comment-head">
@@ -21,22 +21,22 @@
           </view>
         </view>
       </block>
-      <block wx:if="{{loadmore === true && loadend === false}}">
-        <view class="weui-loadmore">
-          <view class="weui-loading"></view>
-          <view class="weui-loadmore__tips">正在加载</view>
-        </view>
-      </block>
-      <block wx:if="{{loadend}}">
-        <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
-        </view>
-      </block>
-      <block wx:if="{{loadFail === true && loadend === false}}">
-        <view class="weui-loadmore weui-loadmore_line">
-          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
-        </view>
-      </block>
+    </view>
+    <block wx:if="{{loadmore === true && loadend === false}}">
+      <view class="weui-loadmore">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
     </block>
-  </view>
+    <block wx:if="{{loadend}}">
+      <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+      </view>
+    </block>
+    <block wx:if="{{loadFail === true && loadend === false}}">
+      <view class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
+      </view>
+    </block>
+  </block>
 </view>

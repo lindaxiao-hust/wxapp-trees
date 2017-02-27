@@ -4,18 +4,13 @@ var util = require("../../utils/util.js")
 
 Page({
   data: {
-    host: 'https://' + config.service.host,
-    startTime: '',
-    endTime: '',
-    mapName: '',
-    activityInfo: {},
-    plantPointTotalNum: 0,
-    hasCollectPlantPointNum: 0,
+    host: config.service.httpsHost,
     dataLoadStatus: 'loading',//判断页面数据是否加载状态
     commentType: config.commentType.commentActivity
   },
   onLoad: function(option) {
     console.log(option);
+    //从跳转链接参数中获取activityId
     this.setData({
       activityId: option.activityId
     })

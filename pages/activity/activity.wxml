@@ -12,10 +12,15 @@
         </view>
       </view>
       <view class="page-section">
-        <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
+        <block wx:if="{{plantPointTotalNum - hasCollectPlantPointNum <= 0}}">
+          <view class="activity-trees">恭喜您，已召唤神龙</view>
+        </block>
+        <block wx:else>
+          <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
+        </block>
         <view class="weui-grids" style="padding-bottom: 15px;">
             <block wx:for="{{plantPointInfoList}}" wx:for-item="plantPointInfo" wx:key="*this">
-                <navigator url="../tree/tree?plant_id={{plantPointInfo.plantId}}&activity_id={{activityId}}" class="weui-grid" hover-class="weui-grid_active">
+                <navigator url="{{plantPointInfo.isCollection === 1 ? '../tree/tree?plant_id='+plantPointInfo.plantId+'&activity_id='+activityInfo.activityId : '../tree/tree?plant_id='+plantPointInfo.plantId}}" class="weui-grid" hover-class="weui-grid_active">
                   <block wx:if="{{plantPointInfo.isCollection}}">
                     <view class="img-mask">
                     </view>
@@ -35,7 +40,7 @@
                       <view style="display: inline-block;vertical-align:middle; font-size: 15px;">{{messageInfoCount}}条</view>
                   </view>
               </navigator>
-              <navigator url="../comment/comment" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                   <view class="weui-cell__bd text-font-size-normal">我要评论</view>
                   <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
                   </view>
