@@ -47,6 +47,7 @@ Page({
       this.globalData.loadingMsg = '回复上传中'
       this.globalData.reply = true
     }
+    console.log(this.globalData.requestNopicUrl);
     //评论/回复提示
     if(option.activityName !== undefined) {
       this.setData({
@@ -153,8 +154,9 @@ Page({
             })
           } else {
             //评论不带图请求不带图接口
+            console.log(that.globalData.requestNopicUrl);
             wx.request({
-              url: that.globalData.requestNoPicUrl,
+              url: that.globalData.requestNopicUrl,
               data: formData,
               method: 'POST',
               success: function(res){
