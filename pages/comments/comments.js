@@ -97,15 +97,30 @@ Page({
     var that = this
     var userName = e.currentTarget.dataset.userName
     var userId = e.currentTarget.dataset.userId
-    var actionTitle = "回复" + userName
+    var picture = e.currentTarget.dataset.picture
     wx.showActionSheet({
-      itemList: [actionTitle],
+      itemList: [
+        "回复" + userName,
+        "查看评论大图"
+      ],
       success: function(res) {
         if (!res.cancel) {
-          //选择回复，跳转到评论页面，带要回复的用户身份标识
-          wx.navigateTo({
-            url: '../comment/comment?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type + '&toUserId=' + userId + '&toUserName=' + userName
-          })
+          if(res.tapIndex === 0) {
+            //选择回复，跳转到评论页面，带要回复的用户身份标识
+            wx.navigateTo({
+              url: '../comment/comment?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type + '&toUserId=' + userId + '&toUserName=' + userName
+            })
+          } else if(res.tapIndex === 1) {
+            wx.previewImage({
+              urls: [picture],
+              fail: function() {
+                wx.showToast({
+                  title: '加载图片失败',
+                  icon: 'warn'
+                })
+              }
+            })
+          }
         }
       }
     });

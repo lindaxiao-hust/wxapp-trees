@@ -9,7 +9,7 @@
       <block wx:for="{{tweetInfoList}}" wx:for-item="tweetInfo" wx:key="*this">
         <view class="weui-panel">
           <view class="weui-panel__bd">
-            <navigator url="../tip/tip" class="weui-media-box weui-media-box_text">
+            <navigator url="../tip/tip?tweetLink={{tweetInfo.tweetLink}}" class="weui-media-box weui-media-box_text">
               <view class="text-font-size-normal weui-media-box__title_in-text">{{tweetInfo.tweetTitle}}</view>
               <view class="weui-media-box__desc">发布时间：{{tweetInfo.createTime}}</view>
             </navigator>

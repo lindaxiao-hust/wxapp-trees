@@ -4,8 +4,13 @@
       <view class="page-section">
         <view class="activity-container">
           <view class="activity-info">
-            <view class="activity-name">{{activityInfo.activityName}}</view>
+            <view class="icon-item">
+              <view class="icon-item-text">{{activityInfo.activityName}}</view>
+              <image class="icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
+            </view>
+            <!-- <view class="activity-name">{{activityInfo.activityName}}</view> -->
             <view class="activity-desc">{{activityInfo.description}}</view>
+            <view class="activity-desc">已收到{{likesCount}}个喜欢</view>
             <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
           </view>
           <image class="activity-map" src="{{host}}{{activityInfo.mapName}}" mode="widthFix"></image>
@@ -40,7 +45,7 @@
                       <view style="display: inline-block;vertical-align:middle; font-size: 15px;">{{messageInfoCount}}条</view>
                   </view>
               </navigator>
-              <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}&activityName={{activityInfo.activityName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                   <view class="weui-cell__bd text-font-size-normal">我要评论</view>
                   <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
                   </view>

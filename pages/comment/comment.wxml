@@ -6,7 +6,7 @@
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="textarea-wrp">
-                <textarea auto-height auto-focus="true" placeholder="评价一下吧" name="textarea"/>
+                <textarea auto-height auto-focus="true" placeholder="{{placeholder}}" name="textarea"/>
               </view>
               <view class="weui-uploader">
                 <view class="weui-uploader__bd">
@@ -28,7 +28,7 @@
         </view>
     </view>
     <view class="btn-area">
-      <button type="primary" formType="submit">提交评论</button>
+      <button type="primary" formType="submit">提交</button>
     </view>
   </form>
   </view>

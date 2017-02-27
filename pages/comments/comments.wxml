@@ -7,7 +7,7 @@
   <block wx:else>
     <view class="page-body">
       <block wx:for="{{messageInfoList}}" wx:for-item="messageInfo" wx:key="*this">
-        <view class="comment-container" data-user-name="{{messageInfo.fromUserName}}" data-user-id="{{messageInfo.fromUserId}}" bindtap="openActionSheet">
+        <view class="comment-container" data-user-name="{{messageInfo.fromUserName}}" data-user-id="{{messageInfo.fromUserId}}" data-picture="{{messageInfo.picture}}" bindtap="openActionSheet">
           <view class="comment-head">
             <image class="comment-avatar" src="{{messageInfo.fromUserAvatarUrl}}" mode="aspectFill"></image>
             <view class="comment-info">

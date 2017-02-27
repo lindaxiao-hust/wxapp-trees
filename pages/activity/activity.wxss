@@ -11,6 +11,25 @@
   padding-right: 15px;
 }
 
+.icon-item {
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.icon-item-text {
+  font-size: 17px;
+  font-weight: 400;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.icon-item-img {
+  width: 64rpx;
+  height: 64rpx;
+  background-color: inherit;
+  margin-left: 10px;
+}
+
 .activity-name {
   font-weight: 400;
   font-size: 17px;

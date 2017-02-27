@@ -33,21 +33,22 @@ var treeInfoTitles = {
   pictures: "该plant对应的图片信息",
   pictureLinks: "该plant对应的图片超链接（用于小程序端）"
 }
-var plantImgUrls = []//当前植物的图片地址列表
 
 Page({
   data: {
     treeInfoTitleArray: [],//存放植物名列表
     treeInfoArray: [],//存放植物信息列表
     treeCultureArray: [],//存放植物文化列表
-    dataLoadStatus: 'loading'//判断页面数据是否加载状态
+    dataLoadStatus: 'loading',//判断页面数据是否加载状态
+    plantImgUrls: []//当前植物的图片地址列表
   },
   onLoad: function(option) {
     console.log(option);
     var treeInfo = JSON.parse(option.treeInfo)
+    var plantImgUrlsTmp = []
     //导出图片链接数组
     for(let index in treeInfo.pictures) {
-      plantImgUrls.push('https://' + config.service.host + treeInfo.pictures[index].pictureName)
+      plantImgUrlsTmp.push(config.service.httpsHost + treeInfo.pictures[index].pictureName)
     }
     var treeInfoArrayTmp = []
     var treeInfoTitleArrayTmp = []
@@ -63,20 +64,25 @@ Page({
         treeInfoArrayTmp.push(treeInfo[key])
       }
     }
-    console.log(treeInfoArrayTmp);
-    console.log(treeInfoTitleArrayTmp);
     this.setData({
       species: treeInfo['species'],
       treeInfoTitleArray: treeInfoTitleArrayTmp,
       treeInfoArray: treeInfoArrayTmp,
       treeCultureArray: treeInfo.cultures,
-      dataLoadStatus: 'success'
+      dataLoadStatus: 'success',
+      plantImgUrls: plantImgUrlsTmp
     })
     console.log(this.data.treeCultureArray);
   },
   showPlantImgs: function() {
     wx.previewImage({
-      urls: plantImgUrls
+      urls: this.data.plantImgUrls,
+      fail: function() {
+        wx.showToast({
+          title: '加载图片失败',
+          icon: 'warn'
+        })
+      }
     })
   }
 })

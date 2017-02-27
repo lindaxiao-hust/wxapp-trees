@@ -5,3 +5,11 @@
 .public-img {
   width: 60%;
 }
+
+.weui-msg__desc {
+  margin-bottom: 10px;
+}
+
+.tweetLink {
+  font-size: 14px;
+}

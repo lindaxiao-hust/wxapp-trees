@@ -24,7 +24,7 @@ Page({
     currentDate: util.getCurrentDate(),
     tweetInfoList: [],
     plantInActivity: true,//当前植物是否参加活动
-    liked: false,
+    liked: false,//记录点赞状态
     foreignId: 0,//点赞/评论对应的plantId/activityId/plantPointId
     likeType: 0,//点赞对应的类型，与foreignId对应，详见config.commentType
     commentType: 0,//评论对应的类型，与foreignId对应，详见config.commentType
@@ -43,6 +43,7 @@ Page({
         commentType: config.commentType.commentPlant
       })
     } else {
+      //带活动
       this.globalData.activityId = option.activity_id
       this.globalData.requestUrl = config.service.plantRequestUrl + "inactivity/pid=" + this.globalData.plantId + "&aid=" + this.globalData.activityId
     }
@@ -107,23 +108,24 @@ Page({
   like: function() {
     var that = this
     var likesCount = 0//记录点赞数
-    var originLikesCount = this.data.likesCount
+    var originLikesCount = this.data.likesCount//记录原始点赞数，给用户数据即时变化的感觉
     //对点赞的处理基于当前的点赞状态
     if(this.data.liked) {
       //取消赞
       this.globalData.requestUrl = config.service.likesRequestUrl + 'cancel'
       this.globalData.successMsg = "成功取消此赞"
       this.globalData.failMsg = "取消此赞失败"
-      likesCount = this.data.likesCount - 1
+      likesCount = this.data.likesCount - 1//点赞数即时变化
     } else {
+      //点赞
       this.globalData.requestUrl = config.service.likesRequestUrl + 'add'
       this.globalData.successMsg = "成功点赞"
       this.globalData.failMsg = "点赞失败"
-      likesCount = this.data.likesCount + 1
+      likesCount = this.data.likesCount + 1//点赞数即时变化
     }
     this.setData({
-      liked: !this.data.liked,
-      likesCount: likesCount
+      liked: !this.data.liked,//点赞状态即时变化
+      likesCount: likesCount//点赞数即时变化
     })
     //与服务器进行交互
     qcloud.request({
@@ -150,6 +152,7 @@ Page({
           title: that.globalData.failMsg,
           icon: "warn"
         })
+        //点赞失败还原点赞状态
         that.setData({
           liked: !that.data.liked,
           likesCount: originLikesCount
@@ -159,8 +162,13 @@ Page({
   },
   showPlantImgs: function() {
     wx.previewImage({
-      // current: 'String', // 当前显示图片的链接，不填则默认为 urls 的第一张
-      urls: this.data.plantImgs
+      urls: this.data.plantImgs,
+      fail: function() {
+        wx.showToast({
+          title: '加载图片失败',
+          icon: 'warn'
+        })
+      }
     })
   }
 })

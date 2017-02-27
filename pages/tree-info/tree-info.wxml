@@ -2,7 +2,7 @@
   <block wx:if="{{dataLoadStatus === 'success'}}">
     <view class="page-head">
       <view class="tree-info-name">{{species}}</view>
-      <text class="weui-cell_link" bindtap="showPlantImgs">查看图片</text>
+      <text class="weui-cell_link" bindtap="showPlantImgs" wx:if="{{plantImgUrls.length !== 0}}">查看图片</text>
     </view>
     <view class="page-body">
       <block wx:for="{{treeInfoTitleArray}}" wx:for-item="treeInfoTitle" wx:key="*this">
@@ -12,7 +12,7 @@
         </view>
       </block>
       <view class="tree-info-container">
-        <view class="tree-info-title">植物文化：</view>
+        <view class="tree-info-title" wx:if="{{treeCultureArray.length !== 0}}">植物文化：</view>
         <block wx:for="{{treeCultureArray}}" wx:for-item="treeCulture" wx:key="*this">
           <view class="culture-container">
             <view class="tree-info-desc culture-info">{{treeCulture.description}}</view>

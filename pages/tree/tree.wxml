@@ -67,7 +67,7 @@
                   <view style="display: inline-block;vertical-align:middle; font-size: 15px;">{{messageInfoCount}}条</view>
               </view>
           </navigator>
-          <navigator url="../comment/comment?foreignId={{foreignId}}&type={{commentType}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <navigator url="../comment/comment?foreignId={{foreignId}}&type={{commentType}}&plantName={{species}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
               <view class="weui-cell__bd text-font-size-normal">我要评论</view>
               <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
               </view>
@@ -86,7 +86,7 @@
               </block>
             </view>
             <view class="weui-panel__ft">
-                <navigator url="../tweets/tweets?plantId={{plantId}}" class="weui-cell weui-cell_access weui-cell_link">
+                <navigator url="../tweets/tweets?plantId={{plantId}}" class="{{tweetInfoList.length === 0 ? 'weui-cell-tweet' : 'weui-cell-tweet-line'}} weui-cell_access weui-cell_link">
                     <view class="weui-cell__bd">查看更多推文</view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>

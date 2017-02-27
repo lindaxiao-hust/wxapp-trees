@@ -11,6 +11,7 @@ Page({
     type: 0,//评论对应的类型，与foreignId对应，详见config.commentType
     toUserId: 0,//回复的用户ID
     requestUrl: '',//请求地址
+    requestNopicUrl: '',
     loadingMsg: '',//加载信息
     successMsg: '',//服务器返回的成功信息
     failMsg: '',//服务器返回的失败信息
@@ -18,31 +19,49 @@ Page({
   },
   data: {
     imageList: [],
-    placeholder: ''//评论内容提示
   },
   onLoad: function(option) {
     console.log(option)
-    // if(!util.isObjOwnEmpty(option)) {
-    //   wx.setNavigationBarTitle({
-    //     title: '回复'+option.userName
-    //   })
-    // }
     this.globalData.foreignId = option.foreignId
     this.globalData.type = option.type
     //评论
     if(option.toUserId === undefined) {
+      wx.setNavigationBarTitle({
+        title: '评论'
+      })
       this.globalData.requestUrl = config.service.messageRequestUrl + 'add'
+      this.globalData.requestNopicUrl = config.service.messageRequestUrl + 'add/nopic'
       this.globalData.successMsg = '评论成功'
       this.globalData.failMsg = '评论失败'
       this.globalData.loadingMsg = '评论上传中'
     } else {
       //回复
+      wx.setNavigationBarTitle({
+        title: '回复'
+      })
       this.globalData.requestUrl = config.service.messageRequestUrl + 'reply'
+      this.globalData.requestNopicUrl = config.service.messageRequestUrl + 'reply/nopic'
       this.globalData.toUserId = option.toUserId
       this.globalData.successMsg = '回复成功'
       this.globalData.failMsg = '回复失败'
       this.globalData.loadingMsg = '回复上传中'
       this.globalData.reply = true
+    }
+    //评论/回复提示
+    if(option.activityName !== undefined) {
+      this.setData({
+        placeholder: '评论一下' + option.activityName +'吧'
+      })
+    }
+    if(option.plantName !== undefined) {
+      this.setData({
+        placeholder: '评论一下' + option.plantName +'吧'
+      })
+    }
+    if(option.toUserName != undefined) {
+        this.setData({
+          placeholder: '回复' + option.toUserName
+        })
     }
   },
   chooseImage: function() {
@@ -101,35 +120,51 @@ Page({
           if(that.globalData.reply) {
             formData.toUserId = that.globalData.toUserId
           }
-          wx.uploadFile({
-            url: that.globalData.requestUrl,
-            filePath: that.data.imageList[0],
-            name:'msgPic',
-            formData: formData,
-            success: function(res){
-              console.log(res);
-              wx.showToast({
-                title: that.globalData.successMsg,
-                icon: 'success'
-              })
-              wx.redirectTo({
-                url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
-                fail: function(err) {
-                  wx.showToast({
-                    title: '跳转页面失败' + err,
-                    icon: 'warn'
-                  })
-                }
-              })
-            },
-            fail: function(err) {
-              console.log(err);
-              wx.showToast({
-                title: that.globalData.failMsg,
-                icon: 'warn'
-              })
-            }
-          })
+          //如果评论带图，请求带图接口
+          if(that.data.imageList.length >= 1) {
+            wx.uploadFile({
+              url: that.globalData.requestUrl,
+              filePath: that.data.imageList[0],
+              name:'msgPic',
+              formData: formData,
+              success: function(res){
+                console.log(res);
+                wx.showToast({
+                  title: that.globalData.successMsg,
+                  icon: 'success'
+                })
+                wx.redirectTo({
+                  url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
+                  fail: function(err) {
+                    wx.showToast({
+                      title: '跳转页面失败' + err,
+                      icon: 'warn'
+                    })
+                  }
+                })
+              },
+              fail: function(err) {
+                console.log(err);
+                wx.showToast({
+                  title: that.globalData.failMsg,
+                  icon: 'warn'
+                })
+              }
+            })
+          } else {
+            //评论不带图请求不带图接口
+            wx.request({
+              url: that.globalData.requestNoPicUrl,
+              data: formData,
+              method: 'POST',
+              success: function(res){
+                console.log(res);
+              },
+              fail: function(err) {
+                console.log(err);
+              }
+            })
+          }
         },
         fail: function(err) {
           console.log(err);

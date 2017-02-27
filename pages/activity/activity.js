@@ -6,7 +6,9 @@ Page({
   data: {
     host: config.service.httpsHost,
     dataLoadStatus: 'loading',//判断页面数据是否加载状态
-    commentType: config.commentType.commentActivity
+    commentType: config.commentType.commentActivity,
+    liked: false,//记录点赞状态
+    activityId: 0
   },
   onLoad: function(option) {
     console.log(option);
@@ -39,7 +41,10 @@ Page({
             hasCollectPlantPointNum: response.data.hasCollectPlantPointNum,
             plantPointInfoList: plantPointInfoList,
             messageInfoCount: response.data.messageInfoCount,
-            dataLoadStatus: 'success'
+            dataLoadStatus: 'success',
+            //like
+            liked: response.data.isLike,
+            likesCount: response.data.likesCount
           })
         } else {
           that.setData({
@@ -52,6 +57,61 @@ Page({
         console.log(err);
         that.setData({
           dataLoadStatus: 'fail'
+        })
+      }
+    })
+  },
+  like: function() {
+    var that = this
+    var likesCount = 0//记录点赞数
+    var originLikesCount = this.data.likesCount//记录原始点赞数，给用户数据即时变化的感觉
+    //对点赞的处理基于当前的点赞状态
+    if(this.data.liked) {
+      //取消赞
+      this.globalData.requestUrl = config.service.likesRequestUrl + 'cancel'
+      this.globalData.successMsg = "成功取消此赞"
+      this.globalData.failMsg = "取消此赞失败"
+      likesCount = this.data.likesCount - 1//点赞数即时变化
+    } else {
+      //点赞
+      this.globalData.requestUrl = config.service.likesRequestUrl + 'add'
+      this.globalData.successMsg = "成功点赞"
+      this.globalData.failMsg = "点赞失败"
+      likesCount = this.data.likesCount + 1//点赞数即时变化
+    }
+    this.setData({
+      liked: !this.data.liked,//点赞状态即时变化
+      likesCount: likesCount//点赞数即时变化
+    })
+    //与服务器进行交互
+    qcloud.request({
+      login: true,
+      url: this.globalData.requestUrl,
+      data: {
+        foreignId: this.data.activityId,
+        likesType: config.likesType.likeActivity
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: function(res) {
+        console.log(res.data);
+        wx.showToast({
+           title: that.globalData.successMsg,
+           icon: "success"
+        })
+      },
+      fail: function(err) {
+        console.log(err);
+        wx.showToast({
+          title: that.globalData.failMsg,
+          icon: "warn"
+        })
+        //点赞失败还原点赞状态
+        that.setData({
+          liked: !that.data.liked,
+          likesCount: originLikesCount
         })
       }
     })

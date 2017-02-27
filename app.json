@@ -13,7 +13,6 @@
   "window": {
     "navigationBarBackgroundColor": "#f8f8f8",
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "树",
     "backgroundColor": "#F8F8F8"
   },
   "networkTimeout": {
