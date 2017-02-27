@@ -13,6 +13,7 @@ Page({
     liked: false,//记录点赞状态
     activityId: 0,
     currentDate: util.getCurrentDate(),
+    map: ''
   },
   onLoad: function(option) {
     console.log(option);
@@ -46,6 +47,7 @@ Page({
             plantPointInfoList: plantPointInfoList,
             messageInfoCount: response.data.messageInfoCount,
             dataLoadStatus: 'success',
+            map: config.service.httpsHost + activityInfo.mapName,
             //like
             liked: response.data.isLike,
             likesCount: response.data.likesCount
@@ -116,6 +118,17 @@ Page({
         that.setData({
           liked: !that.data.liked,
           likesCount: originLikesCount
+        })
+      }
+    })
+  },
+  previewMap: function() {
+    wx.previewImage({
+      urls: [this.data.map],
+      fail: function() {
+        wx:showToast({
+          title: '图片预览失败',
+          icon: 'warn'
         })
       }
     })

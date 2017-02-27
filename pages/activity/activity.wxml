@@ -16,7 +16,7 @@
             </view>
             <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
           </view>
-          <image class="activity-map" src="{{host}}{{activityInfo.mapName}}" mode="widthFix"></image>
+          <image class="activity-map" src="{{map}}" mode="widthFix" bindtap="previewMap"></image>
         </view>
       </view>
       <view class="page-section">
