@@ -1,4 +1,5 @@
 var util = require('../../utils/util.js')
+var config = require('../../config')
 var treeInfoTitles = {
   plantId: "植物id",
   species: "物种",
@@ -32,19 +33,25 @@ var treeInfoTitles = {
   pictures: "该plant对应的图片信息",
   pictureLinks: "该plant对应的图片超链接（用于小程序端）"
 }
+var plantImgUrls = []//当前植物的图片地址列表
 
 Page({
   data: {
     treeInfoTitleArray: [],//存放植物名列表
     treeInfoArray: [],//存放植物信息列表
-    treeCultureArray: []//存放植物文化列表
+    treeCultureArray: [],//存放植物文化列表
+    dataLoadStatus: 'loading'//判断页面数据是否加载状态
   },
   onLoad: function(option) {
+    console.log(option);
     var treeInfo = JSON.parse(option.treeInfo)
-    var key = null
+    //导出图片链接数组
+    for(let index in treeInfo.pictures) {
+      plantImgUrls.push('https://' + config.service.host + treeInfo.pictures[index].pictureName)
+    }
     var treeInfoArrayTmp = []
     var treeInfoTitleArrayTmp = []
-    for(key in treeInfoTitles) {
+    for(let key in treeInfoTitles) {
       if(key !== 'plantId' && key !== 'pictures' && key !== 'pictureLinks' && key !== 'cultures' && key !== 'qrCode' && key !== 'species') {
         treeInfoTitleArrayTmp.push(treeInfoTitles[key])
         if(treeInfo[key] === "") {
@@ -62,8 +69,14 @@ Page({
       species: treeInfo['species'],
       treeInfoTitleArray: treeInfoTitleArrayTmp,
       treeInfoArray: treeInfoArrayTmp,
-      treeCultureArray: treeInfo.cultures
+      treeCultureArray: treeInfo.cultures,
+      dataLoadStatus: 'success'
     })
     console.log(this.data.treeCultureArray);
+  },
+  showPlantImgs: function() {
+    wx.previewImage({
+      urls: plantImgUrls
+    })
   }
 })

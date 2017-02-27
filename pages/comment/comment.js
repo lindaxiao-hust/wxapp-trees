@@ -46,31 +46,58 @@ Page({
     })
   },
   formSubmit: function(e) {
+    var that = this
     console.log('form发生了submit事件，携带数据为：', e.detail.value.textarea)
     console.log(this.data.imageList)
     if(e.detail.value.textarea === "" && this.data.imageList.length === 0) {
       console.log("请填写评论内容")
     } else {
       console.log(config.service.messageRequestUrl + 'add');
-      wx.uploadFile({
-        url: config.service.messageRequestUrl + 'add',
-        filePath: this.data.imageList[0],
-        name:'msgPic',
-        formData: {
-          foreignId: 1,
-          type: 0,
-          messageContent: e.detail.value.textarea
-        },
-        success: function(res){
-          console.log(res);
+      qcloud.request({
+        login: true,
+        url: config.service.userRequestUrl + 'getinfo',
+        success: function(response) {
+          console.log(response);
+          var openId = response.data.data.userInfo.openId
+          wx.uploadFile({
+            url: config.service.messageRequestUrl + 'reply',
+            filePath: that.data.imageList[0],
+            name:'msgPic',
+            formData: {
+              foreignId: 1,
+              type: 0,
+              messageContent: encodeURI(e.detail.value.textarea),
+              openId: openId,
+              toUserId: 1
+            },
+            success: function(res){
+              console.log(res);
+              wx.showToast({
+                title: '成功上传文件',
+                icon: 'success'
+              })
+            },
+            fail: function(err) {
+              console.log(err);
+              wx.showToast({
+                title: '上传文件失败',
+                icon: 'warn'
+              })
+            },
+            complete: function() {
+              // complete
+            }
+          })
         },
         fail: function(err) {
           console.log(err);
-        },
-        complete: function() {
-          // complete
+          wx.showToast({
+            title: '连接服务器失败',
+            icon: 'warn'
+          })
         }
       })
+
     }
   }
 })

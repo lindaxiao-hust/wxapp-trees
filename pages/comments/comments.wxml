@@ -1,29 +1,42 @@
 <view class="container">
-  <block wx:for="{{comments}}" wx:for-item="comment" wx:key="id">
-    <view class="comment-container" data-user-name="{{comment.username}}" data-user-id="{{comment.id}}" bindtap="openActionSheet">
-      <view class="comment-head">
-        <image class="comment-avatar" src="{{comment.avatarUrl}}" mode="aspectFill"></image>
-        <view class="comment-info">
-          <view class="comment-username">{{comment.username}}</view>
-          <view class="comment-date">{{comment.date}}</view>
+  <view class="page-body">
+    <block wx:if="{{messageTotalNumInit === 0}}">
+      <view class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">当前暂无评论</view>
+      </view>
+    </block>
+    <block wx:else>
+      <block wx:for="{{messageInfoList}}" wx:for-item="messageInfo" wx:key="*this">
+        <view class="comment-container" data-user-name="{{messageInfo.fromUserName}}" data-user-id="{{messageInfo.fromUserId}}" bindtap="openActionSheet">
+          <view class="comment-head">
+            <image class="comment-avatar" src="{{messageInfo.fromUserAvatarUrl}}" mode="aspectFill"></image>
+            <view class="comment-info">
+              <view class="comment-username">{{messageInfo.fromUserName}}</view>
+              <view class="comment-date">{{messageInfo.createTime}}</view>
+            </view>
+          </view>
+          <view class="comment-body">
+            <text class="comment-content">{{messageInfo.toUserId ? '回复'+messageInfo.toUserName+'：' : ''}}{{messageInfo.messageContent}}</text>
+            <image wx:if="{{messageInfo.picture}}" class="comment-img" src="{{messageInfo.picture}}" mode="widthFix"></image>
+          </view>
         </view>
-      </view>
-      <view class="comment-body">
-        <text class="comment-content">{{comment.content}}</text>
-        <image wx:if="{{comment.imgSrc}}" class="comment-img" src="{{comment.imgSrc}}" mode="widthFix"></image>
-      </view>
-    </view>
-  </block>
-
-  <block wx:if="{{loadmore === true && loadend === false}}">
-    <view class="weui-loadmore">
-      <view class="weui-loading"></view>
-      <view class="weui-loadmore__tips">正在加载</view>
-    </view>
-  </block>
-  <block wx:if="{{loadend}}">
-    <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
-      <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
-    </view>
-  </block>
+      </block>
+      <block wx:if="{{loadmore === true && loadend === false}}">
+        <view class="weui-loadmore">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+      </block>
+      <block wx:if="{{loadend}}">
+        <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+        </view>
+      </block>
+      <block wx:if="{{loadFail === true && loadend === false}}">
+        <view class="weui-loadmore weui-loadmore_line">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
+        </view>
+      </block>
+    </block>
+  </view>
 </view>

@@ -35,7 +35,7 @@ function formatTime(time) {
 }
 
 function formatDateTime(time) {
-  var date = new Date(1487299020000)
+  var date = new Date(time)
   var Y = date.getFullYear() + '-'
   var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-'
   var D = date.getDate() + ' '

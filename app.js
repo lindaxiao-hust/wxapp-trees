@@ -14,6 +14,10 @@ App({
       },
       fail: function(err) {
         console.log("login fail", err)
+        wx.showModal({
+            content: err.message,
+            showCancel: false
+        })
       }
     })
   }

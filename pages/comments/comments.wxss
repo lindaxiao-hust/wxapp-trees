@@ -60,6 +60,9 @@
   font-size: 14px;
 }
 
+image {
+  height: 256rpx;
+}
 .comment-img {
   width: 40%;
   margin-top: 15rpx;

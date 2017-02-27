@@ -1,40 +1,58 @@
 <view class="container">
-  <view class="page-body">
-    <view class="page-section">
-      <view class="activity-container">
-        <view class="activity-info">
-          <view class="activity-name">{{activityInfo.activityName}}</view>
-          <view class="activity-desc">{{activityInfo.description}}</view>
-          <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
+  <block wx:if="{{dataLoadStatus === 'success'}}">
+    <view class="page-body">
+      <view class="page-section">
+        <view class="activity-container">
+          <view class="activity-info">
+            <view class="activity-name">{{activityInfo.activityName}}</view>
+            <view class="activity-desc">{{activityInfo.description}}</view>
+            <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
+          </view>
+          <image class="activity-map" src="{{host}}{{activityInfo.mapName}}" mode="widthFix"></image>
         </view>
-        <image class="activity-map" src="{{host}}{{activityInfo.mapName}}" mode="widthFix"></image>
       </view>
-    </view>
-    <view class="page-section">
-      <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
-      <view class="weui-grids" style="padding-bottom: 15px;">
-          <block wx:for="{{plantPointInfoList}}" wx:for-item="plantPointInfo" wx:key="*this">
-              <navigator url="../tree/tree" class="weui-grid" hover-class="weui-grid_active">
-                <block wx:if="{{plantPointInfo.isCollection}}">
-                  <view class="img-mask">
+      <view class="page-section">
+        <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
+        <view class="weui-grids" style="padding-bottom: 15px;">
+            <block wx:for="{{plantPointInfoList}}" wx:for-item="plantPointInfo" wx:key="*this">
+                <navigator url="../tree/tree?plant_id={{plantPointInfo.plantId}}&activity_id={{activityId}}" class="weui-grid" hover-class="weui-grid_active">
+                  <block wx:if="{{plantPointInfo.isCollection}}">
+                    <view class="img-mask">
+                    </view>
+                    <icon class="img-mask-icon" type="success_no_circle" size="20"/>
+                  </block>
+                    <image class="activity-tree-img weui-grid__icon" src="{{plantPointInfo.plantPic}}" mode="aspectFill" />
+                  <view class="weui-grid__label">{{plantPointInfo.plantName}}</view>
+                </navigator>
+            </block>
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="weui-cells weui-cells_after-title">
+              <navigator url="../comments/comments?foreignId={{activityId}}&type={{commentType}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                  <view class="weui-cell__bd text-font-size-normal">查看活动评论</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                      <view style="display: inline-block;vertical-align:middle; font-size: 15px;">{{messageInfoCount}}条</view>
                   </view>
-                  <icon class="img-mask-icon" type="success_no_circle" size="20"/>
-                </block>
-                  <image class="activity-tree-img weui-grid__icon" src="{{plantPointInfo.plantPic}}" mode="aspectFill" />
-                <view class="weui-grid__label">{{plantPointInfo.plantName}}</view>
               </navigator>
-          </block>
+              <navigator url="../comment/comment" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                  <view class="weui-cell__bd text-font-size-normal">我要评论</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                  </view>
+              </navigator>
+          </view>
       </view>
     </view>
-    <view class="page-section">
-      <view class="weui-cells weui-cells_after-title">
-            <navigator url="../comments/comments" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd text-font-size-normal">查看活动评论</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
-                    <view style="display: inline-block;vertical-align:middle; font-size: 15px;">233条</view>
-                </view>
-            </navigator>
-        </view>
+  </block>
+  <block wx:elif="{{dataLoadStatus === 'fail'}}">
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
     </view>
-  </view>
+  </block>
+  <block wx:else>
+    <view class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </block>
 </view>

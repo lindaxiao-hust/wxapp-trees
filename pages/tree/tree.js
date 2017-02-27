@@ -2,56 +2,72 @@ var qcloud = require("../../bower_components/qcloud-weapp-client-sdk/index.js")
 var config = require("../../config")
 var util = require("../../utils/util.js")
 
+/**
+**  进入该页面有两种方式
+**  1. 带活动: pages/tree/tree?plant_id=plantId&activity_id=activityId
+**  2. 不带活动: pages/tree/tree?plant_id=plantId
+**/
+
 //模拟扫码链接，pages/tree/tree?plant_id=plantId&activity_id=activityId
 var plantId = 253
 var activityId = 6
 
-var plantInfos = null
-var likesType = 0
-var requestUrl, successMsg, failMsg
+var plantInfos = null//服务器返回的植物相关信息
+var requestUrl, successMsg, failMsg//请求地址，服务器返回的成功信息，服务器返回的失败信息
 var plantImgUrls = []//当前植物的图片地址列表
 
 Page({
   data: {
     host: 'https://' + config.service.host,
-    dataLoaded: false,//判断页面数据是否成功加载
+    dataLoadStatus: 'loading',//判断页面数据是否加载状态
     plantImgs: [],//当前植物的图片列表
     currentDate: util.getCurrentDate(),
     tweetInfoList: []
   },
-  onLoad: function() {
+  onLoad: function(option) {
+    console.log(option);
     var that = this
     qcloud.request({
       login: true,
       url: config.service.plantRequestUrl + "inactivity/pid=" + plantId + "&aid=" + activityId,
       success: function(response) {
         console.log(response)
-        plantInfos = response.data
-        //到处图片链接数组
-        var pictures = plantInfos.plantInfo.pictures
-        for(let index in pictures) {
-          plantImgUrls.push(that.data.host + pictures[index].pictureName)
+        if(response.statusCode === 200) {
+          plantInfos = response.data
+          //导出图片链接数组
+          var pictures = plantInfos.plantInfo.pictures
+          for(let index in pictures) {
+            plantImgUrls.push(that.data.host + pictures[index].pictureName)
+          }
+          that.setData({
+            activityId: activityId,
+            plantId: plantId,
+            dataLoadStatus: 'success',
+            //plantInfos
+            hasCollectPlantPointNum: plantInfos.hasCollectPlantPointNum,
+            plantPointTotalNum: plantInfos.plantPointTotalNum,
+            liked: plantInfos.isLike,
+            likesCount: plantInfos.likesCount,
+            //plantInfo
+            treeInfo: JSON.stringify(plantInfos.plantInfo),
+            plantImgs: pictures,
+            species: plantInfos.plantInfo.species,
+            feature: plantInfos.plantInfo.feature,
+            messageInfoCount: plantInfos.messageInfoCount,
+            //commentInfo
+            foreignId: plantInfos.plantPoint.plantPointId,
+            type: config.commentType.commentPlantPoint
+          })
+        } else {
+          that.setData({
+            dataLoadStatus: 'fail'
+          })
         }
-        console.log(plantImgUrls);
-        that.setData({
-          activityId: activityId,
-          hasCollectPlantPointNum: plantInfos.hasCollectPlantPointNum,
-          plantPointTotalNum: plantInfos.plantPointTotalNum,
-          liked: plantInfos.isLike,
-          likesCount: plantInfos.likesCount,
-          //plantInfo
-          treeInfo: JSON.stringify(plantInfos.plantInfo),
-          plantImgs: pictures,
-          species: plantInfos.plantInfo.species,
-          feature: plantInfos.plantInfo.feature
-        })
       },
       fail: function(err) {
         console.log(err)
-      },
-      complete: function() {
         that.setData({
-          dataLoaded: true
+          dataLoadStatus: 'fail'
         })
       }
     })
