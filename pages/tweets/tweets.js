@@ -34,13 +34,12 @@ Page({
     var that = this
     qcloud.request({
       login: true,
-      url: config.service.tweetRequestUrl + 'wxlist?plantId=' + that.globalData.plantId + '&startPos=' + that.globalData.startPos + '&pageSize=' + pageSize,
+      url: config.service.tweetRequestUrl + 'wxlist',
       data: {
         plantId: that.globalData.plantId,
         startPos: that.globalData.startPos,
         pageSize: pageSize
       },
-      method: 'POST',
       success: function(response) {
         console.log(response);
         if(response.statusCode === 200) {

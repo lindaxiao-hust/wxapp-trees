@@ -42,7 +42,7 @@ var config = {
     commentActivity: 1,
     commentPlant: 2
   },
-  pageSize: 3//页面每次加载的条数
+  pageSize: 10//页面每次加载的条数
 };
 
 module.exports = config;
