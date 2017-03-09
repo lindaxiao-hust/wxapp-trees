@@ -2,7 +2,7 @@
  * 小程序配置文件
  */
 
-var host = '81370915.rockclimbingo.club';
+var host = 'your lightapp host';
 
 var config = {
 
