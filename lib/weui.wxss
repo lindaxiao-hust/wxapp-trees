@@ -704,7 +704,7 @@ icon {
 }
 .weui-loadmore_line {
   border-top: 1px solid #E5E5E5;
-  /*margin-top: 2.4em;*/
+  margin-top: 2.4em;
 }
 .weui-loadmore__tips_in-line {
   position: relative;

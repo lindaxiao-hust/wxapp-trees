@@ -19,10 +19,10 @@
               <view class="icon-item">
                 <view class="icon-item-text">{{activityInfo.activityName}}</view>
               </view>
-              <view class="weui-media-box__desc">活动时间：{{activityInfo.startTime}} - {{activityInfo.endTime}}</view>
-              <!-- <view class="weui-media-box__info">
+              <view class="weui-media-box__desc">地点：{{activityInfo.areaName}} | <span wx:if="{{activityInfo.hasCollectPlantPointCount > 0}}">您已参与该活动</span><span wx:else>您尚未参与该活动</span></view>
+              <view class="weui-media-box__info">
                 <view class="weui-media-box__info__meta">活动时间：{{activityInfo.startTime}} - {{activityInfo.endTime}}</view>
-              </view> -->
+              </view>
             </view>
           </view>
           <view class="weui-panel__ft">

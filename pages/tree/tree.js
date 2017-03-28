@@ -30,7 +30,6 @@ Page({
     commentType: 0,//评论对应的类型，与foreignId对应，详见config.commentType
   },
   onLoad: function(option) {
-    console.log(option);
     this.globalData.plantId = option.plant_id
 
     if(option.activity_id === undefined) {
@@ -72,7 +71,7 @@ Page({
             treeInfo: JSON.stringify(plantInfos.plantInfo),
             plantImgs: picturesTmp,
             species: plantInfos.plantInfo.species,
-            feature: plantInfos.plantInfo.feature,
+            scientificInfo: plantInfos.plantInfo.scientificInfo,
             //commentInfo
             messageInfoCount: plantInfos.messageInfoCount,
             //tweet

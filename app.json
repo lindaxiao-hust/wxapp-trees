@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/tree-activity/tree-activity",
     "pages/tree/tree",
-
     "pages/tweets/tweets",
     "pages/tree-info/tree-info",
     "pages/activity/activity",

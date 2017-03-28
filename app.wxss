@@ -128,9 +128,9 @@ image {
   font-weight: normal;
 }
 
-.weui-loadmore_dot {
+/*.weui-loadmore_dot {
   margin-bottom: -24rpx;
-}
+}*/
 
 .primary-color {
   color: #0BB20C;

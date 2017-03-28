@@ -11,7 +11,7 @@
           <view class="tree-info-desc">{{treeInfoArray[index]}}</view>
         </view>
       </block>
-      <view class="tree-info-container">
+      <!-- <view class="tree-info-container">
         <view class="tree-info-title" wx:if="{{treeCultureArray.length !== 0}}">植物文化：</view>
         <block wx:for="{{treeCultureArray}}" wx:for-item="treeCulture" wx:key="*this">
           <view class="culture-container">
@@ -20,7 +20,7 @@
             <view class="tree-info-desc culture-info">相关引用：{{treeCulture.quote}}</view>
           </view>
         </block>
-      </view>
+      </view> -->
     </view>
   </block>
   <block wx:elif="{{dataLoadStatus === 'fail'}}">

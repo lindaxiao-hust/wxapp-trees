@@ -84,14 +84,17 @@ Page({
   onReachBottom: function() {
     //正在加载或已加载完时reachbottom无效
     if(this.data.loadmore === false && this.data.loadend === false) {
+      // 若继续请求服务器要重新计算startPos，要注意减去新增的部分
+      if(this.data.loadFail === false) {
+        this.globalData.startPos = this.globalData.startPos + pageSize + this.globalData.activityTotalNum - this.data.activityTotalNumInit
+      }
+
       //正在加载
       this.setData({
         loadmore: true,
         loadFail: false
       })
 
-      //每次请求服务器要重新计算startPos，要注意减去新增的部分
-      this.globalData.startPos = this.globalData.startPos + pageSize + this.globalData.messageTotalNum - this.data.messageTotalNumInit
       this.requestMessage()
     }
   },

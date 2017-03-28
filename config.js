@@ -2,7 +2,7 @@
  * 小程序配置文件
  */
 
-var host = 'your lightapp host';
+var host = '32604953.epname.com';
 
 var config = {
 

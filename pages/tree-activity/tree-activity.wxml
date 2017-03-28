@@ -1,0 +1,67 @@
+<view class="container">
+  <block wx:if="{{dataLoadStatus === 'success'}}">
+    <view class="page-head">
+      <view class="project-name">
+        {{plantInfo.species}}
+      </view>
+      <view class="project-desc">参与活动有惊喜，当前共有{{activityInfoList.length}}个活动</view>
+    </view>
+    <block wx:if="{{activityTotalNumInit === 0}}">
+      <view class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">当前暂无活动</view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="page-body">
+        <block wx:for="{{activityInfoList}}" wx:for-item="activityInfo" wx:key="*this">
+          <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__bd">
+              <view class="weui-media-box weui-media-box_text">
+                <view class="icon-item">
+                  <view class="icon-item-text">{{activityInfo.activityName}}</view>
+                </view>
+                <view class="weui-media-box__desc"><span wx:if="{{activityInfo.isParticipate}}">您已参与该活动</span><span wx:else>您尚未参与该活动</span> | {{activityInfo.description}}</view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">活动时间：{{activityInfo.startTime}} - {{activityInfo.endTime}}</view>
+                </view>
+              </view>
+            </view>
+            <view class="weui-panel__ft">
+                <navigator url="../tree/tree?plant_id={{plantInfo.plantId}}&activity_id={{activityInfo.activityId}}" class="weui-cell weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd"><span wx:if="{{activityInfo.isParticipate}}">查看活动进度</span><span wx:else>参与该活动</span></view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+            </view>
+          </view>
+        </block>
+    </view>
+      <block wx:if="{{loadmore === true && loadend === false}}">
+        <view class="weui-loadmore">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+      </block>
+      <block wx:if="{{loadend}}">
+        <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+        </view>
+      </block>
+      <block wx:if="{{loadFail === true && loadend === false}}">
+        <view class="weui-loadmore weui-loadmore_line">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
+        </view>
+      </block>
+    </block>
+  </block>
+  <block wx:elif="{{dataLoadStatus === 'fail'}}">
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </block>
+</view>

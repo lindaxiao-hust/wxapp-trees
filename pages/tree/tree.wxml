@@ -21,7 +21,7 @@
                 <view class="icon-item-text">{{species}}</view>
                 <image class="icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
               </view>
-              <view class="weui-media-box__desc">{{feature}}</view>
+              <view class="weui-media-box__desc">{{scientificInfo}}</view>
               <view class="weui-media-box__info">
                 <view class="weui-media-box__info__meta">已收到{{likesCount}}个喜欢</view>
                 <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
