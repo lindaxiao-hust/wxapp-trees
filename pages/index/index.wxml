@@ -3,7 +3,7 @@
     <view class="project-name">
       欢迎来到自然教育趣味平台
     </view>
-    <view class="project-desc">介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台介绍自然教育趣味平台</view>
+    <view class="project-desc">这里有各种有趣的植物，这里还有各种有趣的活动</view>
   </view>
   <block wx:if="{{activityTotalNumInit === 0}}">
     <view class="weui-loadmore weui-loadmore_line">

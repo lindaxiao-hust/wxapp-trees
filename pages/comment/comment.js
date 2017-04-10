@@ -134,15 +134,31 @@ Page({
                   title: that.globalData.successMsg,
                   icon: 'success'
                 })
-                wx.redirectTo({
-                  url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
-                  fail: function(err) {
-                    wx.showToast({
-                      title: '跳转页面失败' + err,
-                      icon: 'warn'
-                    })
-                  }
-                })
+                if(that.globalData.reply) {
+                  wx.navigateBack({
+                    delta: 1, // 回退前 delta(默认为1) 页面
+                    success: function(res){
+                      // success
+                      
+                    },
+                    fail: function() {
+                      // fail
+                    },
+                    complete: function() {
+                      // complete
+                    }
+                  })
+                } else {
+                  wx.redirectTo({
+                    url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
+                    fail: function(err) {
+                      wx.showToast({
+                        title: '跳转页面失败' + err,
+                        icon: 'warn'
+                      })
+                    }
+                  })
+                }
               },
               fail: function(err) {
                 console.log(err);
@@ -165,15 +181,32 @@ Page({
                   title: that.globalData.successMsg,
                   icon: 'success'
                 })
-                wx.redirectTo({
-                  url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
-                  fail: function(err) {
-                    wx.showToast({
-                      title: '跳转页面失败' + err,
-                      icon: 'warn'
-                    })
-                  }
-                })
+                if(that.globalData.reply) {
+                  wx.navigateBack({
+                    delta: 1, // 回退前 delta(默认为1) 页面
+                    success: function(res){
+                      // success
+
+                    },
+                    fail: function() {
+                      // fail
+                    },
+                    complete: function() {
+                      // complete
+                    }
+                  })
+                } else {
+                  wx.redirectTo({
+                    url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
+                    fail: function(err) {
+                      wx.showToast({
+                        title: '跳转页面失败' + err,
+                        icon: 'warn'
+                      })
+                    }
+                  })
+                }
+
               },
               fail: function(err) {
                 console.log(err);

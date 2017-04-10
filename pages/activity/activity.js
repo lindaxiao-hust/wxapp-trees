@@ -67,6 +67,40 @@ Page({
       }
     })
   },
+  onShow: function() {
+    var that = this
+    // 每次页面显示时都请求一次评论最新情况
+    qcloud.request({
+      login: true,
+      url: config.service.messageRequestUrl + 'list',
+      data: {
+        foreignId: that.data.activityId,
+        type: that.data.commentType,
+        startPos: 0,
+        pageSize: 1
+      },
+      success: function(response) {
+        console.log(response);
+        if(response.statusCode === 200) {
+          var messageInfoCount = response.data.messageTotalNum
+          that.setData({
+            messageInfoCount: messageInfoCount
+          })
+
+          if(messageInfoCount > 0) {
+            var messageInfo = response.data.messageInfoList[0]
+            messageInfo.createTime = util.formatDateTime(messageInfo.createTime)
+            that.setData({
+              messageInfo: response.data.messageInfoList[0]
+            })
+          }
+        }
+      },
+      fail: function(err) {
+        console.log(err);
+      }
+    })
+  },
   like: function() {
     var that = this
     var likesCount = 0//记录点赞数

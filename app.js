@@ -20,5 +20,8 @@ App({
         })
       }
     })
+  },
+  globalData: {
+    tweetUrl: ''
   }
 })

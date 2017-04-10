@@ -21,7 +21,7 @@
                 <view class="icon-item-text">{{species}}</view>
                 <image class="icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
               </view>
-              <view class="weui-media-box__desc">{{scientificInfo}}</view>
+              <view class="weui-media-box__desc">{{intro}}</view>
               <view class="weui-media-box__info">
                 <view class="weui-media-box__info__meta">已收到{{likesCount}}个喜欢</view>
                 <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
@@ -41,7 +41,7 @@
           <view class="weui-panel weui-panel_access">
             <view class="weui-panel__bd">
               <view class="weui-media-box weui-media-box_text">
-                <view class="weui-media-box__title weui-media-box__title_in-text">活动一</view>
+                <view class="weui-media-box__title weui-media-box__title_in-text">{{activityInfo.activityName}}</view>
                 <view class="weui-media-box__desc">您已成功收集{{species}}，当前进度 {{hasCollectPlantPointNum}} / {{plantPointTotalNum}}</view>
                 <view class="progress weui-progress">
                   <view class="weui-progress__bar">
@@ -59,41 +59,90 @@
           </view>
         </view>
       </block>
-      <view class="page-section">
-        <view class="weui-cells weui-cells_after-title">
-          <navigator url="../comments/comments?foreignId={{foreignId}}&type={{commentType}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-              <view class="weui-cell__bd text-font-size-normal">查看活动评论</view>
-              <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
-                  <view style="display: inline-block;vertical-align:middle; font-size: 15px;">{{messageInfoCount}}条</view>
-              </view>
-          </navigator>
-          <navigator url="../comment/comment?foreignId={{foreignId}}&type={{commentType}}&plantName={{species}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-              <view class="weui-cell__bd text-font-size-normal">我要评论</view>
-              <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
-              </view>
-          </navigator>
+      <!-- <block wx:if="{{messageInfoCount > 0}}">
+        <view class="page-section">
+          <view class="weui-cells weui-cells_after-title">
+            <navigator url="../comments/comments?foreignId={{foreignId}}&type={{commentType}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd text-font-size-normal">查看评论</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                    <view style="display: inline-block;vertical-align:middle; font-size: 15px;">{{messageInfoCount}}条</view>
+                </view>
+            </navigator>
+            <navigator url="../comment/comment?foreignId={{foreignId}}&type={{commentType}}&plantName={{species}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd text-font-size-normal">我要评论</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access" style="font-size: 0">
+                </view>
+            </navigator>
+          </view>
         </view>
-      </view>
-      <view class="page-section">
-        <view class="weui-panel weui-panel_access">
-            <view class="weui-panel__bd">
-              <block wx:for="{{tweetInfoList}}" wx:for-item="tweetInfo" wx:key="*this">
-                <navigator url="../tip/tip?tweetLink={{tweetInfo.tweetLink}}" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                        <view class="text-font-size-normal weui-media-box__title">{{tweetInfo.tweetTitle}}</view>
+      </block> -->
+      <block wx:if="{{messageInfoCount > 0}}">
+        <view class="page-section">
+          <view class="weui-panel weui-panel_access">
+              <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_text">
+                  <view class="comment-container" style="padding: 0;">
+                    <view class="comment-head">
+                      <image class="comment-avatar" src="{{messageInfo.fromUserAvatarUrl}}" mode="aspectFill"></image>
+                      <view class="comment-info">
+                        <view class="comment-username">{{messageInfo.fromUserName}}</view>
+                        <view class="comment-date">{{messageInfo.createTime}}</view>
+                      </view>
                     </view>
-                </navigator>
-              </block>
-            </view>
+                    <view class="comment-body">
+                      <text class="comment-content">{{messageInfo.toUserId ? '回复'+messageInfo.toUserName+'：' : ''}}{{messageInfo.messageContent ? messageInfo.messageContent : '图片评论'}}</text>
+                      <!-- <image wx:if="{{messageInfo.picture !== undefined}}" class="comment-img" src="{{messageInfo.picture}}" mode="widthFix"></image> -->
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class="weui-panel__ft">
+                  <navigator url="../comments/comments?foreignId={{foreignId}}&type={{commentType}}" class="weui-cell weui-cell_access weui-cell_link">
+                      <view class="weui-cell__bd">查看更多评论</view>
+                      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                  </navigator>
+                  <navigator url="../comment/comment?foreignId={{foreignId}}&type={{commentType}}&plantName={{species}}" class="weui-cell weui-cell_access weui-cell_link">
+                      <view class="weui-cell__bd">我要评论</view>
+                      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                  </navigator>
+              </view>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="page-section">
+          <view class="weui-panel weui-panel_access">
             <view class="weui-panel__ft">
-                <navigator url="../tweets/tweets?plantId={{plantId}}" class="{{tweetInfoList.length === 0 ? 'weui-cell-tweet' : 'weui-cell-tweet-line'}} weui-cell_access weui-cell_link">
-                    <view class="weui-cell__bd">查看更多推文</view>
+                <navigator url="../comment/comment?foreignId={{foreignId}}&type={{commentType}}&plantName={{species}}" class="weui-cell-tweet weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd">我要评论</view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>
             </view>
+          </view>
         </view>
-      </view>
-
+      </block>
+      <block wx:if="{{tweetInfoList.length !== 0}}">
+        <view class="page-section">
+          <view class="weui-panel weui-panel_access">
+              <view class="weui-panel__bd">
+                <block wx:for="{{tweetInfoList}}" wx:for-item="tweetInfo" wx:key="*this">
+                  <!-- url="../tip/tip?tweetLink={{tweetInfo.tweetLink}}" -->
+                  <view bindtap="goTip" data-idx="{{index}}" class="tweet-list-item weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                          <view class="text-font-size-normal weui-media-box__title">{{tweetInfo.tweetTitle}}</view>
+                      </view>
+                  </view>
+                </block>
+              </view>
+              <view class="weui-panel__ft">
+                  <navigator url="../tweets/tweets?plantId={{plantId}}" class="{{tweetInfoList.length === 0 ? 'weui-cell-tweet' : 'weui-cell-tweet-line'}} weui-cell_access weui-cell_link">
+                      <view class="weui-cell__bd">查看更多推文</view>
+                      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                  </navigator>
+              </view>
+          </view>
+        </view>
+      </block>
     </view>
   </block>
   <block wx:elif="{{dataLoadStatus === 'fail'}}">

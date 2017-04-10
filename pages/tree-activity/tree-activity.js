@@ -23,7 +23,7 @@ Page({
     var that = this
     qcloud.request({
       login: true,
-      // url: config.service.activityRequestUrl + 'all/pid=2',
+      // url: config.service.activityRequestUrl + 'all/pid=445',
       url: config.service.activityRequestUrl + 'all/pid=' + that.data.plantId,
       success: function(response) {
         console.log(response);
@@ -33,12 +33,12 @@ Page({
           if (activityListTmp.length === 0) {
             wx.redirectTo({
               url: '../tree/tree?plant_id=' + that.data.plantId
-              // url: '../tree/tree?plant_id=1'
+              // url: '../tree/tree?plant_id=455'
             })
           } else if(activityListTmp.length === 1) {
             wx.redirectTo({
               url: '../tree/tree?plant_id=' + that.data.plantId + '&activity_id=' + activityListTmp[0].activityId
-              // url: '../tree/tree?plant_id=1&activity_id=1'
+              // url: '../tree/tree?plant_id=419&activity_id=5'
             })
           } else {
             for (let index in activityListTmp) {

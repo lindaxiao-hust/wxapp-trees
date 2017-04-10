@@ -25,6 +25,22 @@ Page({
     this.globalData.type = option.type
     this.requestMessage()
   },
+  onShow: function() {
+    // 刷新当前页面
+    this.requestMessage()
+  },
+  initialize: function() {
+    this.globalData.startPos = 0
+    this.globalData.init = true
+    this.globalData.messageTotalNum = 0
+    this.setData({
+      loadmore: true,
+      loadend: false,
+      loadFail: false,
+      messageInfoList: [],
+      messageTotalNumInit: -1
+    })
+  },
   loadEnded: function() {
     return this.globalData.startPos + pageSize >= this.data.messageTotalNumInit ? true : false
   },
@@ -86,7 +102,7 @@ Page({
     if(this.data.loadmore === false && this.data.loadend === false) {
       // 若继续请求服务器要重新计算startPos，要注意减去新增的部分
       if(this.data.loadFail === false) {
-        this.globalData.startPos = this.globalData.startPos + pageSize + this.globalData.activityTotalNum - this.data.activityTotalNumInit
+        this.globalData.startPos = this.globalData.startPos + pageSize + this.globalData.messageTotalNum - this.data.messageTotalNumInit
       }
 
       //正在加载
@@ -100,34 +116,57 @@ Page({
   },
   openActionSheet: function(e) {
     var that = this
+    console.log(e);
     var userName = e.currentTarget.dataset.userName
     var userId = e.currentTarget.dataset.userId
     var picture = e.currentTarget.dataset.picture
-    wx.showActionSheet({
-      itemList: [
-        "回复" + userName,
-        "查看评论大图"
-      ],
-      success: function(res) {
-        if (!res.cancel) {
-          if(res.tapIndex === 0) {
-            //选择回复，跳转到评论页面，带要回复的用户身份标识
-            wx.navigateTo({
-              url: '../comment/comment?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type + '&toUserId=' + userId + '&toUserName=' + userName
-            })
-          } else if(res.tapIndex === 1) {
-            wx.previewImage({
-              urls: [picture],
-              fail: function() {
-                wx.showToast({
-                  title: '加载图片失败',
-                  icon: 'warn'
-                })
-              }
-            })
+    if(picture) {
+      wx.showActionSheet({
+        itemList: [
+          "回复" + userName,
+          "查看评论大图"
+        ],
+        success: function(res) {
+          if (!res.cancel) {
+            if(res.tapIndex === 0) {
+              //选择回复，跳转到评论页面，带要回复的用户身份标识
+              wx.navigateTo({
+                url: '../comment/comment?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type + '&toUserId=' + userId + '&toUserName=' + userName
+              })
+            } else if(res.tapIndex === 1) {
+              wx.previewImage({
+                urls: [picture],
+                fail: function() {
+                  wx.showToast({
+                    title: '加载图片失败',
+                    icon: 'warn'
+                  })
+                }
+              })
+            }
           }
         }
-      }
-    });
+      })
+    } else {
+      wx.showActionSheet({
+        itemList: [
+          "回复" + userName
+        ],
+        success: function(res) {
+          if (!res.cancel) {
+            if(res.tapIndex === 0) {
+              //选择回复，跳转到评论页面，带要回复的用户身份标识
+              wx.navigateTo({
+                url: '../comment/comment?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type + '&toUserId=' + userId + '&toUserName=' + userName
+              })
+            }
+          }
+        }
+      })
+    }
   },
+  onHide: function() {
+    // 当前设计，评论页永远刷新
+    this.initialize()
+  }
 })

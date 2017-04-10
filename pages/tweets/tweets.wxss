@@ -1,4 +1,4 @@
-.weui-panel {
+/*.weui-panel {
   margin-top: 0;
   background-color: inherit;
 }
@@ -14,4 +14,4 @@
 }
 .weui-panel:last-child::before {
   display: none;
-}
+}*/

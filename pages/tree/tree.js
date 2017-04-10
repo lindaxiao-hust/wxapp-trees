@@ -1,14 +1,13 @@
 var qcloud = require("../../bower_components/qcloud-weapp-client-sdk/index.js")
 var config = require("../../config")
 var util = require("../../utils/util.js")
+var app = getApp()
 
 /**
 **  进入该页面有两种方式
 **  1. 带活动: pages/tree/tree?plant_id=plantId&activity_id=activityId
 **  2. 不带活动: pages/tree/tree?plant_id=plantId
 **/
-
-
 Page({
   globalData: {
     requestUrl: '',//请求地址
@@ -16,6 +15,7 @@ Page({
     failMsg: '',//服务器返回的失败信息
     plantId: 0,//植物id，由链接参数获取
     activityId: 0,//活动id，由链接参数获取
+    loadEnd: false // 记录初次加载是否完成
   },
   data: {
     host: config.service.httpsHost,
@@ -63,7 +63,7 @@ Page({
           }
           that.setData({
             plantId: that.globalData.plantId,
-            dataLoadStatus: 'success',
+            // dataLoadStatus: 'success',
             //like
             liked: plantInfos.isLike,
             likesCount: plantInfos.likesCount,
@@ -71,7 +71,7 @@ Page({
             treeInfo: JSON.stringify(plantInfos.plantInfo),
             plantImgs: picturesTmp,
             species: plantInfos.plantInfo.species,
-            scientificInfo: plantInfos.plantInfo.scientificInfo,
+            intro: plantInfos.plantInfo.intro,
             //commentInfo
             messageInfoCount: plantInfos.messageInfoCount,
             //tweet
@@ -83,12 +83,15 @@ Page({
               //plantInfosInActivity
               hasCollectPlantPointNum: plantInfos.hasCollectPlantPointNum,
               plantPointTotalNum: plantInfos.plantPointTotalNum,
+              activityInfo: plantInfos.activityInfo,
               //comment like
               foreignId: plantInfos.plantPoint.plantPointId,
               likeType: config.likesType.likePlantPoint,
               commentType: config.commentType.commentPlantPoint,
             })
           }
+          that.getMessage(that)
+          that.globalData.loadEnd = true
         } else {
           that.setData({
             dataLoadStatus: 'fail'
@@ -97,6 +100,49 @@ Page({
       },
       fail: function(err) {
         console.log(err)
+        that.setData({
+          dataLoadStatus: 'fail'
+        })
+      }
+    })
+  },
+  onShow: function() {
+    var that = this
+    // 每次页面显示时都请求一次评论最新情况
+    if(that.globalData.loadEnd) {
+      that.getMessage(that)
+    }
+  },
+  getMessage: function(that) {
+    qcloud.request({
+      login: true,
+      url: config.service.messageRequestUrl + 'list',
+      data: {
+        foreignId: that.data.foreignId,
+        type: that.data.commentType,
+        startPos: 0,
+        pageSize: 1
+      },
+      success: function(response) {
+        console.log(response);
+        if(response.statusCode === 200) {
+          var messageInfoCount = response.data.messageTotalNum
+          that.setData({
+            dataLoadStatus: 'success',
+            messageInfoCount: messageInfoCount
+          })
+
+          if(messageInfoCount > 0) {
+            var messageInfo = response.data.messageInfoList[0]
+            messageInfo.createTime = util.formatDateTime(messageInfo.createTime)
+            that.setData({
+              messageInfo: response.data.messageInfoList[0]
+            })
+          }
+        }
+      },
+      fail: function(err) {
+        console.log(err);
         that.setData({
           dataLoadStatus: 'fail'
         })
@@ -168,6 +214,13 @@ Page({
           icon: 'warn'
         })
       }
+    })
+  },
+  goTip: function(e) {
+    app.globalData.tweetUrl = this.data.tweetInfoList[e.currentTarget.dataset.idx].tweetLink
+    // console.log(app.globalData.tweetUrl);
+    wx.navigateTo({
+      url: "../tip/tip"
     })
   }
 })
