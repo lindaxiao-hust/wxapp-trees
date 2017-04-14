@@ -42,10 +42,11 @@ Page({
     var treeInfoTitleArrayTmp = []
     for(let key in treeInfoTitles) {
       if(key !== 'plantId' && key !== 'pictures' && key !== 'pictureLinks' && key !== 'cultures' && key !== 'qrCode' && key !== 'species') {
-        treeInfoTitleArrayTmp.push(treeInfoTitles[key])
         if(!treeInfo[key] || treeInfo[key] === "") {
-          treeInfo[key] = "暂无相关信息"
+          // treeInfo[key] = "暂无相关信息"
+          continue
         }
+        treeInfoTitleArrayTmp.push(treeInfoTitles[key])
         if(key === 'createTime') {
           treeInfo[key] = util.formatDateTime(treeInfo[key])
         }

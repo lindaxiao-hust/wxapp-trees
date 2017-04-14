@@ -19,6 +19,8 @@ Page({
   },
   data: {
     imageList: [],
+    focus: true,
+    disabledBtn: false
   },
   onLoad: function(option) {
     console.log(option)
@@ -90,6 +92,11 @@ Page({
       imageList:  this.data.imageList
     })
   },
+  hideKeyboard: function() {
+    this.setData({
+      focus: false
+    })
+  },
   formSubmit: function(e) {
     var that = this
     console.log('form发生了submit事件，携带数据为：', e.detail.value.textarea)
@@ -100,6 +107,9 @@ Page({
         showCancel: false
       })
     } else {
+      this.setData({
+        disabledBtn: true
+      })
       wx.showToast({
         title: that.globalData.loadingMsg,
         icon: 'loading',
@@ -136,22 +146,16 @@ Page({
                 })
                 if(that.globalData.reply) {
                   wx.navigateBack({
-                    delta: 1, // 回退前 delta(默认为1) 页面
-                    success: function(res){
-                      // success
-                      
-                    },
-                    fail: function() {
-                      // fail
-                    },
-                    complete: function() {
-                      // complete
-                    }
+                    delta: 1 // 回退前 delta(默认为1) 页面
                   })
                 } else {
                   wx.redirectTo({
                     url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
                     fail: function(err) {
+                      console.log(err);
+                      that.setData({
+                        disabledBtn: false
+                      })
                       wx.showToast({
                         title: '跳转页面失败' + err,
                         icon: 'warn'
@@ -162,6 +166,9 @@ Page({
               },
               fail: function(err) {
                 console.log(err);
+                that.setData({
+                  disabledBtn: false
+                })
                 wx.showToast({
                   title: that.globalData.failMsg,
                   icon: 'warn'
@@ -183,22 +190,16 @@ Page({
                 })
                 if(that.globalData.reply) {
                   wx.navigateBack({
-                    delta: 1, // 回退前 delta(默认为1) 页面
-                    success: function(res){
-                      // success
-
-                    },
-                    fail: function() {
-                      // fail
-                    },
-                    complete: function() {
-                      // complete
-                    }
+                    delta: 1 // 回退前 delta(默认为1) 页面
                   })
                 } else {
                   wx.redirectTo({
                     url: '../comments/comments?foreignId=' + that.globalData.foreignId + '&type=' + that.globalData.type,
                     fail: function(err) {
+                      console.log(err);
+                      that.setData({
+                        disabledBtn: false
+                      })
                       wx.showToast({
                         title: '跳转页面失败' + err,
                         icon: 'warn'
@@ -210,6 +211,9 @@ Page({
               },
               fail: function(err) {
                 console.log(err);
+                that.setData({
+                  disabledBtn: false
+                })
                 wx.showToast({
                   title: that.globalData.failMsg,
                   icon: 'warn'
@@ -220,6 +224,9 @@ Page({
         },
         fail: function(err) {
           console.log(err);
+          that.setData({
+            disabledBtn: false
+          })
           wx.showToast({
             title: '连接服务器失败',
             icon: 'warn'

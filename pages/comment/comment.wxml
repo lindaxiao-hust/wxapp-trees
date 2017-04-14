@@ -6,7 +6,7 @@
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="textarea-wrp">
-                <textarea auto-height auto-focus="true" placeholder="{{placeholder}}" name="textarea"/>
+                <textarea auto-height focus="{{focus}}" placeholder="{{placeholder}}" name="textarea" />
               </view>
               <view class="weui-uploader">
                 <view class="weui-uploader__bd">
@@ -28,7 +28,7 @@
         </view>
     </view>
     <view class="btn-area">
-      <button type="primary" formType="submit">提交</button>
+      <button type="primary" formType="submit" bindtap="hideKeyboard" disabled="{{disabledBtn}}">提交</button>
     </view>
   </form>
   </view>

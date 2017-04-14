@@ -23,7 +23,6 @@ Page({
     console.log(option);
     this.globalData.foreignId = option.foreignId
     this.globalData.type = option.type
-    this.requestMessage()
   },
   onShow: function() {
     // 刷新当前页面
