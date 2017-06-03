@@ -1,14 +1,24 @@
 <view class="container">
   <block wx:if="{{dataLoadStatus === 'success'}}">
-    <view class="page-head">
-      <view class="tree-info-name">{{species}}</view>
-      <text class="weui-cell_link" bindtap="showPlantImgs" wx:if="{{plantImgUrls.length !== 0}}">查看图片</text>
+    <view class="weui-uploader__file_status" bindtap="showPlantImgs">
+      <image class="tree-img" src="{{plantImgsLen !== 0 ? plantImg : defaultImg}}" mode="aspectFill" />
+       <view class="weui-uploader__file-content tree-title">
+         <view class="tree-info-name">{{species}}</view>
+         <text wx:if="{{plantImgsLen !== 0}}" style="color: #fff;">查看图片</text>
+       </view>
     </view>
     <view class="page-body">
+      <view wx:if="{{audio}}" class="tree-info-container" style="text-align: center;">
+        <audio style="text-align: left" src="{{httpsHost + audio}}" poster="{{audioPoster ? audioPoster : defaultAudioPoster}}"
+        name="{{audioName ? audioName : '未知音频'}}" author="{{audioAuthor ? audioAuthor : '未知作者'}}"
+        action="{{audioAction}}" controls></audio>
+      </view>
       <block wx:for="{{treeInfoTitleArray}}" wx:for-item="treeInfoTitle" wx:key="*this">
         <view class="tree-info-container">
-          <view class="tree-info-title">{{treeInfoTitle}}：</view>
-          <view class="tree-info-desc">{{treeInfoArray[index]}}</view>
+          <view>
+            <text class="tree-info-title">{{treeInfoTitle}}：</text>
+            <text class="tree-info-desc">{{treeInfoArray[index]}}</text>
+          </view>
         </view>
       </block>
       <!-- <view class="tree-info-container">
@@ -21,6 +31,9 @@
           </view>
         </block>
       </view> -->
+      <view class="tree-info-container">
+        <view class="tree-info-desc">注：按恩格勒系统分类</view>
+      </view>
     </view>
   </block>
   <block wx:elif="{{dataLoadStatus === 'fail'}}">

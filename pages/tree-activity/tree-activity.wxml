@@ -1,11 +1,18 @@
 <view class="container">
   <block wx:if="{{dataLoadStatus === 'success'}}">
-    <view class="page-head">
+    <view class="weui-uploader__file_status">
+      <image class="tree-img" src="{{plantInfo.pictureLinks.length > 0 ? httpsHost + plantInfo.pictureLinks[0] : defaultImg}}" mode="aspectFill" />
+       <view class="weui-uploader__file-content tree-title">
+         <view class="tree-info-name">{{plantInfo.species}}</view>
+         <text wx:if="{{plantImgsLen !== 0}}" style="color: #fff;">参与活动有惊喜，当前共有{{activityInfoList.length}}个活动</text>
+       </view>
+    </view>
+    <!-- <view class="page-head">
       <view class="project-name">
         {{plantInfo.species}}
       </view>
       <view class="project-desc">参与活动有惊喜，当前共有{{activityInfoList.length}}个活动</view>
-    </view>
+    </view> -->
     <block wx:if="{{activityTotalNumInit === 0}}">
       <view class="weui-loadmore weui-loadmore_line">
         <view class="weui-loadmore__tips weui-loadmore__tips_in-line">当前暂无活动</view>
@@ -13,22 +20,36 @@
     </block>
     <block wx:else>
       <view class="page-body">
-        <block wx:for="{{activityInfoList}}" wx:for-item="activityInfo" wx:key="*this">
+        <block wx:for="{{activityInfoList}}" wx:for-item="activity" wx:key="*this">
+          <!-- <navigator url="../tree/tree?plant_id={{plantInfo.plantId}}&activity_id={{activity.activityId}}" hover-class="weui-cell_active" class="weui-media-box weui-media-box_appmsg">
+              <view class="weui-flex__item weui-uploader__file_status">
+                <image class="activity-img" src="{{activity.mapName ? httpsHost + activity.mapName : defaultImg}}" mode="aspectFill" />
+                 <view class="weui-uploader__file-content activity-info">
+                   <view class="activity-name">{{activity.activityName}}</view>
+                   <view class="activity-content">已有{{activity.participatorNum}}人参加该活动 | {{activity.isParticipate ? '您已参与该活动' : '您暂未参与该活动'}}</view>
+                   <view class="activity-content">地点：{{activity.location}}</view>
+                   <view class="activity-content">时间：{{activity.startTime}} - {{activity.endTime}}</view>
+                 </view>
+              </view>
+          </navigator> -->
           <view class="weui-panel weui-panel_access">
             <view class="weui-panel__bd">
               <view class="weui-media-box weui-media-box_text">
                 <view class="icon-item">
-                  <view class="icon-item-text">{{activityInfo.activityName}}</view>
+                  <view class="icon-item-text">{{activity.activityName}}</view>
                 </view>
-                <view class="weui-media-box__desc"><span wx:if="{{activityInfo.isParticipate}}">您已参与该活动</span><span wx:else>您尚未参与该活动</span> | {{activityInfo.description}}</view>
+                <view class="weui-media-box__desc">已有{{activity.participatorNum}}人参加该活动 | {{activity.isParticipate ? '您已参与该活动' : '您暂未参与该活动'}}</view>
                 <view class="weui-media-box__info">
-                  <view class="weui-media-box__info__meta">活动时间：{{activityInfo.startTime}} - {{activityInfo.endTime}}</view>
+                  <view class="weui-media-box__info__meta">地点：{{activity.location}}</view>
+                </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">时间：{{activity.startTime}} - {{activity.endTime}}</view>
                 </view>
               </view>
             </view>
             <view class="weui-panel__ft">
-                <navigator url="../tree/tree?plant_id={{plantInfo.plantId}}&activity_id={{activityInfo.activityId}}" class="weui-cell weui-cell_access weui-cell_link">
-                    <view class="weui-cell__bd"><span wx:if="{{activityInfo.isParticipate}}">查看活动进度</span><span wx:else>参与该活动</span></view>
+                <navigator url="../tree/tree?plant_id={{plantInfo.plantId}}&activity_id={{activity.activityId}}&scanCode=true" class="weui-cell weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd"><span wx:if="{{activity.isParticipate}}">查看活动进度</span><span wx:else>参与该活动</span></view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>
             </view>

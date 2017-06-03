@@ -4,17 +4,22 @@
       <view class="page-section">
         <view class="activity-container">
           <view class="activity-info">
-            <view class="icon-item">
-              <view class="icon-item-text">{{activityInfo.activityName}}</view>
-              <image class="icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
+            <view class="text-icon-item">
+              <view class="text-icon-item-text">
+                <view class="text-icon-item-title">
+                  {{activityInfo.activityName}}
+                </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta">已有{{participatorNum}}人参与</view>
+                  <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">已收到{{likesCount}}个喜欢</view>
+                </view>
+                <!-- <view class="activity-desc"><text class="activity-info-meta">已有57人参与</text><text class="activity-info-meta activity-info-meta-extra">已收到{{likesCount}}个喜欢</text></view> -->
+              </view>
+              <image class="text-icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
             </view>
-            <!-- <view class="activity-name">{{activityInfo.activityName}}</view> -->
             <view class="activity-desc">{{activityInfo.description}}</view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta">已收到{{likesCount}}个喜欢</view>
-              <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{currentDate}}</view>
-            </view>
-            <view class="activity-date">活动时间：{{startTime}} - {{endTime}}</view>
+            <view class="activity-desc"><text class="strong-font">活动时间：</text>{{startTime}} - {{endTime}}</view>
+            <view  class="activity-desc"><text class="strong-font">活动地点：</text><text class="weui-cell_link" bindtap="showLocation" style="font-size: 13px;">{{activityInfo.location}}</text></view>
           </view>
           <image class="activity-map" src="{{map}}" mode="widthFix" bindtap="previewMap"></image>
         </view>
@@ -26,7 +31,7 @@
         <block wx:else>
           <view class="activity-trees">再集齐{{plantPointTotalNum - hasCollectPlantPointNum}}种植物，你就可以召唤神龙了</view>
         </block>
-        <view class="weui-grids" style="padding-bottom: 15px;">
+        <view class="weui-grids">
             <block wx:for="{{plantPointInfoList}}" wx:for-item="plantPointInfo" wx:key="*this">
                 <navigator url="{{plantPointInfo.isCollection === 1 ? '../tree/tree?plant_id='+plantPointInfo.plantId+'&activity_id='+activityInfo.activityId : '../tree/tree?plant_id='+plantPointInfo.plantId}}" class="weui-grid" hover-class="weui-grid_active">
                   <block wx:if="{{plantPointInfo.isCollection}}">
@@ -34,7 +39,7 @@
                     </view>
                     <icon class="img-mask-icon" type="success_no_circle" size="20"/>
                   </block>
-                    <image class="activity-tree-img weui-grid__icon" src="{{plantPointInfo.plantPic}}" mode="aspectFill" />
+                    <image class="activity-tree-img weui-grid__icon" src="{{plantPointInfo.plantPic ? httpsHost + plantPointInfo.plantPic : defaultImg }}" mode="aspectFill" />
                   <view class="weui-grid__label">{{plantPointInfo.plantName}}</view>
                 </navigator>
             </block>
@@ -56,47 +61,51 @@
           </view>
       </view> -->
       <block wx:if="{{messageInfoCount > 0}}">
-        <view class="page-section">
-          <view class="weui-panel weui-panel_access">
-              <view class="weui-panel__bd">
-                <view class="weui-media-box weui-media-box_text">
-                  <view class="comment-container" style="padding: 0;">
-                    <view class="comment-head">
-                      <image class="comment-avatar" src="{{messageInfo.fromUserAvatarUrl}}" mode="aspectFill"></image>
-                      <view class="comment-info">
-                        <view class="comment-username">{{messageInfo.fromUserName}}</view>
-                        <view class="comment-date">{{messageInfo.createTime}}</view>
-                      </view>
+        <view class="weui-panel weui-panel_access">
+          <view class="weui-panel__hd">
+            <view class="icon-bullhorn"></view>
+            <text class="section-title">看看大家怎么说</text>
+          </view>
+            <view class="weui-panel__bd">
+              <view class="weui-media-box weui-media-box_text">
+                <view class="comment-container" style="padding: 0;">
+                  <view class="comment-head">
+                    <image class="comment-avatar" src="{{messageInfo.fromUserAvatarUrl}}" mode="aspectFill"></image>
+                    <view class="comment-info">
+                      <view class="comment-username">{{messageInfo.fromUserName}}</view>
+                      <view class="comment-date">{{messageInfo.createTime}}</view>
                     </view>
-                    <view class="comment-body">
-                      <text class="comment-content">{{messageInfo.toUserId ? '回复'+messageInfo.toUserName+'：' : ''}}{{messageInfo.messageContent ? messageInfo.messageContent : '图片评论'}}</text>
-                      <!-- <image wx:if="{{messageInfo.picture !== undefined}}" class="comment-img" src="{{messageInfo.picture}}" mode="widthFix"></image> -->
-                    </view>
+                  </view>
+                  <view class="comment-body">
+                    <text class="comment-content">{{messageInfo.toUserId ? '回复'+messageInfo.toUserName+'：' : ''}}{{messageInfo.messageContent ? messageInfo.messageContent : '图片评论'}}</text>
+                    <!-- <image wx:if="{{messageInfo.picture !== undefined}}" class="comment-img" src="{{messageInfo.picture}}" mode="widthFix"></image> -->
                   </view>
                 </view>
               </view>
-              <view class="weui-panel__ft">
-                  <navigator url="../comments/comments?foreignId={{activityId}}&type={{commentType}}" class="weui-cell weui-cell_access weui-cell_link">
-                      <view class="weui-cell__bd">查看更多评论</view>
-                      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                  </navigator>
-                  <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}&activityName={{activityInfo.activityName}}" class="weui-cell weui-cell_access weui-cell_link">
-                      <view class="weui-cell__bd">我要评论</view>
-                      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                  </navigator>
-              </view>
-          </view>
-        </view>
-      </block>
-      <block wx:else>
-        <view class="page-section">
-          <view class="weui-panel weui-panel_access">
+            </view>
             <view class="weui-panel__ft">
-                <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}&activityName={{activityInfo.activityName}}" class="weui-cell-tweet weui-cell_access weui-cell_link">
+                <navigator url="../comments/comments?foreignId={{activityId}}&type={{commentType}}" class="weui-cell weui-cell_access weui-cell_link">
+                    <view class="weui-cell__bd">查看更多评论</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </navigator>
+                <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}&name={{activityInfo.activityName}}" class="weui-cell weui-cell_access weui-cell_link">
                     <view class="weui-cell__bd">我要评论</view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>
             </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="weui-panel weui-panel_access">
+          <view class="weui-panel__hd">
+            <view class="icon-bullhorn"></view>
+            <text class="section-title">当前暂无评论</text>
+          </view>
+          <view class="weui-panel__ft">
+              <navigator url="../comment/comment?foreignId={{activityId}}&type={{commentType}}&name={{activityInfo.activityName}}" class="weui-cell-tweet weui-cell_access weui-cell_link">
+                  <view class="weui-cell__bd">我要评论</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+              </navigator>
           </view>
         </view>
       </block>

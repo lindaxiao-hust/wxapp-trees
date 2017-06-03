@@ -1,17 +1,1 @@
-/*.weui-panel {
-  margin-top: 0;
-  background-color: inherit;
-}
-.weui-panel:before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 1px;
-  border-top: 1rpx solid #E5E5E5;
-  color: #E5E5E5;
-}
-.weui-panel:last-child::before {
-  display: none;
-}*/
+@import "../tweets-recommend/tweets-recommend.wxss";

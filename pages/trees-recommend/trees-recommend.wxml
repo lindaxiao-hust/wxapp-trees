@@ -1,0 +1,29 @@
+<view class="container">
+  <block wx:if="{{dataLoadStatus === 'success'}}">
+    <block wx:for="{{plants}}" wx:for-item="plant" wx:key="this">
+      <navigator url="../tree/tree?plant_id={{plant.plantId}}" hover-class="weui-cell_active" class="weui-media-box weui-media-box_appmsg">
+          <view class="weui-flex__item weui-uploader__file_status">
+            <image class="tree-img" src="{{plant.pictureLinks.length > 0 ? httpsHost + plant.pictureLinks[0] : defaultImg}}" mode="aspectFill" />
+             <view class="weui-uploader__file-content tree-info">
+               <view class="tree-name">{{plant.species}}</view>
+               <view class="tree-intro">{{plant.intro}}</view>
+             </view>
+          </view>
+      </navigator>
+    </block>
+    <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
+    </view>
+  </block>
+  <block wx:elif="{{dataLoadStatus === 'fail'}}">
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </block>
+</view>

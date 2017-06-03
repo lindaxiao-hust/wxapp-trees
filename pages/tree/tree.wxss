@@ -1,4 +1,6 @@
 @import "../comments/comments.wxss";
+@import "../tweets-recommend/tweets-recommend.wxss";
+@import "../index-new/index-new.wxss";
 
 .swiper-item {
   display: block;
@@ -69,4 +71,35 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+}
+
+.page-mask-bg {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.page-mask-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #94CE58;
+  z-index: 1000;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.page-mask-img {
+  width: 244px;
+  height: 177px;
+  background: none;
+  margin-top: 15px;
 }

@@ -6,16 +6,23 @@
   </block>
   <block wx:else>
     <view class="page-body">
-      <block wx:for="{{tweetInfoList}}" wx:for-item="tweetInfo" wx:key="*this">
-        <view class="weui-panel">
+      <block wx:for="{{tweetInfoList}}" wx:for-item="tweet" wx:key="*this">
+        <!-- <view class="weui-panel">
           <view class="weui-panel__bd">
-            <!-- url="../tip/tip?tweetLink={{tweetInfo.tweetLink}}" -->
             <view bindtap="goTip" data-idx='{{index}}' class="weui-media-box weui-media-box_text">
               <view class="text-font-size-normal weui-media-box__title_in-text">{{tweetInfo.tweetTitle}}</view>
               <view class="weui-media-box__desc">发布时间：{{tweetInfo.createTime}}</view>
             </view>
           </view>
-        </view>
+        </view> -->
+        <navigator url="../tweet/tweet?tweetId={{tweet.tweetId}}" hover-class="weui-cell_active" class="weui-media-box weui-media-box_appmsg">
+            <view class="weui-flex__item">
+              <view class="tweet-title">{{tweet.tweetTitle}}</view>
+              <view class="tweet-time">发布于{{tweet.createTime}}</view>
+              <image class="tweet-img" src="{{tweet.previewImg ? httpsHost + tweet.previewImg : defaultImg}}" mode="aspectFill" />
+              <view class="tweet-intro">{{tweet.intro}}</view>
+            </view>
+        </navigator>
       </block>
     </view>
     <block wx:if="{{loadmore === true && loadend === false}}">

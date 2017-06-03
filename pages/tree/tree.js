@@ -13,14 +13,16 @@ Page({
     requestUrl: '',//请求地址
     successMsg: '',//服务器返回的成功信息
     failMsg: '',//服务器返回的失败信息
-    plantId: 0,//植物id，由链接参数获取
     activityId: 0,//活动id，由链接参数获取
-    loadEnd: false // 记录初次加载是否完成
+    loadEnd: false, // 记录初次加载是否完成
+    plantImgsAll: [],//当前植物的图片列表
   },
   data: {
-    host: config.service.httpsHost,
+    httpsHost: config.service.httpsHost,
+    defaultImg: config.defaultImg,
     dataLoadStatus: 'loading',//判断页面数据是否加载状态
-    plantImgs: [],//当前植物的图片列表
+    plantId: 0,//植物id，由链接参数获取
+    plantImgs: [],//取植物的图片列表前三张显示在首页
     currentDate: util.getCurrentDate(),
     tweetInfoList: [],
     plantInActivity: true,//当前植物是否参加活动
@@ -28,23 +30,33 @@ Page({
     foreignId: 0,//点赞/评论对应的plantId/activityId/plantPointId
     likeType: 0,//点赞对应的类型，与foreignId对应，详见config.commentType
     commentType: 0,//评论对应的类型，与foreignId对应，详见config.commentType
+    uncollected: false, //用户是否第一次收集该植物
+    returnHome: false // 是否添加回首页入口
   },
   onLoad: function(option) {
-    this.globalData.plantId = option.plant_id
+    console.log('getCurrentPages():'+getCurrentPages().length);
+
+    this.setData({
+      plantId: option.plant_id
+    })
+    if(getCurrentPages().length === 1 || option.scanCode)
+    this.setData({
+      returnHome: true
+    })
 
     if(option.activity_id === undefined) {
       //不带活动，纯plant
-      this.globalData.requestUrl = config.service.plantRequestUrl + "notactivity/pid=" + this.globalData.plantId
+      this.globalData.requestUrl = config.service.plantRequestUrl + "notactivity/pid=" + this.data.plantId
       this.setData({
         plantInActivity: false,
-        foreignId: this.globalData.plantId,
+        foreignId: this.data.plantId,
         likeType: config.likesType.likePlant,
         commentType: config.commentType.commentPlant
       })
     } else {
       //带活动
       this.globalData.activityId = option.activity_id
-      this.globalData.requestUrl = config.service.plantRequestUrl + "inactivity/pid=" + this.globalData.plantId + "&aid=" + this.globalData.activityId
+      this.globalData.requestUrl = config.service.plantRequestUrl + "inactivity/pid=" + this.data.plantId + "&aid=" + this.globalData.activityId
     }
 
     var that = this
@@ -57,25 +69,27 @@ Page({
           var plantInfos = response.data
           //导出图片链接数组
           var pictures = plantInfos.plantInfo.pictures
-          var picturesTmp = []
           for(let index in pictures) {
-            picturesTmp.push(that.data.host + pictures[index].pictureName)
+            that.globalData.plantImgsAll.push(that.data.httpsHost + pictures[index].pictureName)
           }
+          var tweetInfoList = plantInfos.tweetInfoList
+          tweetInfoList.forEach(function(tweet) {
+            tweet.createTime = util.formatDateTime(tweet.createTime)
+          })
           that.setData({
-            plantId: that.globalData.plantId,
             // dataLoadStatus: 'success',
             //like
             liked: plantInfos.isLike,
             likesCount: plantInfos.likesCount,
             //plantInfo
-            treeInfo: JSON.stringify(plantInfos.plantInfo),
-            plantImgs: picturesTmp,
+            // treeInfo: JSON.stringify(plantInfos.plantInfo),
+            plantImgs: that.globalData.plantImgsAll.slice(0, 3),
             species: plantInfos.plantInfo.species,
             intro: plantInfos.plantInfo.intro,
             //commentInfo
             messageInfoCount: plantInfos.messageInfoCount,
             //tweet
-            tweetInfoList: plantInfos.tweetInfoList
+            tweetInfoList: tweetInfoList
           })
           if(that.data.plantInActivity) {
             that.setData({
@@ -89,9 +103,14 @@ Page({
               likeType: config.likesType.likePlantPoint,
               commentType: config.commentType.commentPlantPoint,
             })
+            // 当前植物参加活动，且为第一次收集
+            if(response.data.resultStatus !== "HASCOLLECT") {
+              that.setData({
+                uncollected: true
+              })
+            }
           }
           that.getMessage(that)
-          that.globalData.loadEnd = true
         } else {
           that.setData({
             dataLoadStatus: 'fail'
@@ -107,10 +126,9 @@ Page({
     })
   },
   onShow: function() {
-    var that = this
     // 每次页面显示时都请求一次评论最新情况
-    if(that.globalData.loadEnd) {
-      that.getMessage(that)
+    if(this.globalData.loadEnd) {
+      this.getMessage(this)
     }
   },
   getMessage: function(that) {
@@ -139,6 +157,11 @@ Page({
               messageInfo: response.data.messageInfoList[0]
             })
           }
+
+          // todo 若第一次收集植物，响提示音
+          if(that.data.uncollected) {
+            that.ding()
+          }
         }
       },
       fail: function(err) {
@@ -146,6 +169,9 @@ Page({
         that.setData({
           dataLoadStatus: 'fail'
         })
+      },
+      complete: function() {
+        that.globalData.loadEnd = true
       }
     })
   },
@@ -205,9 +231,10 @@ Page({
       }
     })
   },
-  showPlantImgs: function() {
+  showPlantImgs: function(event) {
     wx.previewImage({
-      urls: this.data.plantImgs,
+      current: event.currentTarget.dataset.imgUrl,
+      urls: this.globalData.plantImgsAll,
       fail: function() {
         wx.showToast({
           title: '加载图片失败',
@@ -218,9 +245,32 @@ Page({
   },
   goTip: function(e) {
     app.globalData.tweetUrl = this.data.tweetInfoList[e.currentTarget.dataset.idx].tweetLink
-    // console.log(app.globalData.tweetUrl);
     wx.navigateTo({
       url: "../tip/tip"
     })
+  },
+  ding: function() {
+    wx.playBackgroundAudio({
+      dataUrl: config.defaultDing,
+      title: '成功收集植物提示音',
+      coverImgUrl: ''
+    })
+  },
+  collect: function() {
+    // 停止音效播放
+    wx.stopBackgroundAudio()
+    // 将状态改为已收集该植物
+    this.setData({
+      uncollected: !this.data.uncollected
+    })
+  },
+  // 返回上一页的同时关闭声音，该页面需要判断当前页数是否为1，若为1跳转到首页
+  onHide: function() {
+    // 停止音效播放
+    wx.stopBackgroundAudio()
+  },
+  onUnload: function() {
+    // 停止音效播放
+    wx.stopBackgroundAudio()
   }
 })

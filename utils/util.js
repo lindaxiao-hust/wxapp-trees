@@ -17,6 +17,9 @@ function isObjOwnEmpty(obj) {
   return true
 }
 
+/**
+**  将秒转换为时分秒的形式
+**/
 function formatTime(time) {
   if (typeof time !== 'number' || time < 0) {
     return time
@@ -34,10 +37,13 @@ function formatTime(time) {
   }).join(':')
 }
 
+/**
+**  将日期转换为年月日时分的形式
+**/
 function formatDateTime(time) {
   var date = new Date(time)
-  var Y = date.getFullYear() + '-'
-  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-'
+  var Y = date.getFullYear() + '/'
+  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '/'
   var D = (date.getDate() + 1 > 10 ? date.getDate() : '0' + date.getDate()) + ' '
   var h  = (date.getHours() + 1 > 10 ? date.getHours() : '0' + date.getHours()) + ':'
   var m = (date.getMinutes() + 1 > 10 ? date.getMinutes() : '0' + date.getMinutes())

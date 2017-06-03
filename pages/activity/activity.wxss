@@ -1,11 +1,15 @@
 @import "../comments/comments.wxss";
 
+.container {
+  padding-bottom: 40px;
+}
+
 .activity-container {
   -webkit-display: flex;
   display: flex;
   flex-direction: column;
   padding-top: 15px;
-  padding-bottom: 15px;
+  /*padding-bottom: 15px;*/
 }
 
 .activity-info {
@@ -13,19 +17,24 @@
   padding-right: 15px;
 }
 
-.icon-item {
+.text-icon-item {
   display: -webkit-flex;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-.icon-item-text {
-  font-size: 17px;
-  font-weight: 400;
+.text-icon-item-text {
   -webkit-flex: 1;
   flex: 1;
 }
-.icon-item-img {
+.text-icon-item-title {
+  font-size: 17px;
+  font-weight: bold;
+}
+.weui-media-box__info {
+  margin-top: 5px;
+}
+.text-icon-item-img {
   width: 64rpx;
   height: 64rpx;
   background-color: inherit;
@@ -41,6 +50,7 @@
 .activity-desc {
   font-size: 13px;
   line-height: 1.2;
+  margin-bottom: 10px;
 }
 
 .activity-date {
@@ -51,11 +61,11 @@
 
 .activity-map {
   width: 100%;
-  margin-top: 15px;
+  /*margin-top: 5px;*/
 }
 
 .activity-trees {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding-left: 15px;
   padding-right: 15px;
   font-size: 14px;
@@ -88,4 +98,21 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+}
+
+.activity-info-meta {
+  padding-right: 1em;
+}
+
+.activity-info-meta-extra {
+  padding-left: 1em;
+  border-left: 1px solid #CECECE;
+}
+
+.strong-font {
+  font-weight: bold;
+}
+
+.weui-panel {
+  margin-top: 30px;
 }

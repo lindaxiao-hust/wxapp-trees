@@ -1,0 +1,96 @@
+<view class="container">
+  <block wx:if="{{dataLoadStatus === 'success'}}">
+    <!-- <image class="tweet-img" src="{{tweetInfo.previewImg ? httpsHost + tweetInfo.previewImg : defaultImg}}" mode="aspectFill"></image> -->
+    <view class="tweet-container">
+      <view class="tweet-title">
+        <view class="text-icon-item">
+          <view class="text-icon-item-text">
+            <view class="text-icon-item-title">
+              {{tweetInfo.tweetTitle}}
+            </view>
+          </view>
+          <image class="text-icon-item-img" src="{{liked ? '../../images/like_HL.png' : '../../images/like.png'}}" bindtap="like"></image>
+        </view>
+        <view class="weui-media-box__info">
+          <view class="weui-media-box__info__meta">发布于{{tweetInfo.createTime}}</view>
+          <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">已收到{{likesCount}}个喜欢</view>
+        </view>
+      </view>
+      <view class="tweet-content weui-article">
+        <view wx:if="{{tweetInfo.audio}}" class="weui-article__p" style="text-align: center;">
+          <!-- <audio style="text-align: left" src="{{current.src}}" poster="{{current.poster}}" name="{{current.name}}" author="{{current.author}}" action="{{audioAction}}" controls></audio> -->
+          <audio style="text-align: left" src="{{httpsHost + tweetInfo.audio}}" poster="{{tweetInfo.audioPoster ? tweetInfo.audioPoster : defaultAudioPoster}}"
+          name="{{tweetInfo.audioName ? tweetInfo.audioName : '未知音频'}}" author="{{tweetInfo.audioAuthor ? tweetInfo.audioAuthor : '未知作者'}}"
+          action="{{audioAction}}" controls></audio>
+        </view>
+        <block wx:for="{{tweetInfo.contents}}" wx:for-item="tweetContent" wx:key="this">
+          <view class="weui-article__p">
+            {{tweetContent.content}}
+          </view>
+          <view wx:if="{{tweetContent.img}}" class="weui-article__p">
+            <image class="tweet-content-img" src="{{httpsHost + tweetContent.img}}" mode="widthFix" bindtap="showTweetImgs" data-img-url="{{httpsHost + tweetContent.img}}"></image>
+          </view>
+        </block>
+      </view>
+    </view>
+    <block wx:if="{{messageInfoCount > 0}}">
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__hd">
+          <view class="icon-bullhorn"></view>
+          <text class="section-title">看看大家怎么说</text>
+        </view>
+          <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_text">
+              <view class="comment-container" style="padding: 0;">
+                <view class="comment-head">
+                  <image class="comment-avatar" src="{{messageInfo.fromUserAvatarUrl}}" mode="aspectFill"></image>
+                  <view class="comment-info">
+                    <view class="comment-username">{{messageInfo.fromUserName}}</view>
+                    <view class="comment-date">{{messageInfo.createTime}}</view>
+                  </view>
+                </view>
+                <view class="comment-body">
+                  <text class="comment-content">{{messageInfo.toUserId ? '回复'+messageInfo.toUserName+'：' : ''}}{{messageInfo.messageContent ? messageInfo.messageContent : '图片评论'}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="weui-panel__ft">
+              <navigator url="../comments/comments?foreignId={{tweetInfo.tweetId}}&type={{commentType}}" class="weui-cell weui-cell_access weui-cell_link">
+                  <view class="weui-cell__bd">查看更多评论</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+              </navigator>
+              <navigator url="../comment/comment?foreignId={{tweetInfo.tweetId}}&type={{commentType}}&name={{tweetInfo.tweetTitle}}" class="weui-cell weui-cell_access weui-cell_link">
+                  <view class="weui-cell__bd">我要评论</view>
+                  <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+              </navigator>
+          </view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="weui-panel weui-panel_access">
+        <view class="weui-panel__hd">
+          <view class="icon-bullhorn"></view>
+          <text class="section-title">当前暂无评论</text>
+        </view>
+        <view class="weui-panel__ft">
+            <navigator url="../comment/comment?foreignId={{tweetInfo.tweetId}}&type={{commentType}}&name={{tweetInfo.tweetTitle}}" class="weui-cell-tweet weui-cell_access weui-cell_link">
+                <view class="weui-cell__bd">我要评论</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view>
+      </view>
+    </block>
+  </block>
+  <block wx:elif="{{dataLoadStatus === 'fail'}}">
+    <view class="weui-loadmore weui-loadmore_line">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">加载失败</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+  </block>
+</view>

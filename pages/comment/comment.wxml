@@ -3,6 +3,11 @@
     <form bindsubmit="formSubmit" >
     <view class="page-section">
       <view class="weui-cells" style="margin-top: 0; background-color: #F8F8F8;">
+          <view class="weui-cell" wx:if="{{!reply}}">
+            <view class="weui-cell__bd">
+              【{{contentType}}】{{contentTitle}}
+            </view>
+          </view>
           <view class="weui-cell">
             <view class="weui-cell__bd">
               <view class="textarea-wrp">

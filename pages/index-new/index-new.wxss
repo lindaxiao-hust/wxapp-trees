@@ -1,0 +1,47 @@
+@import "../tweets-recommend/tweets-recommend.wxss";
+@import "../activities-recommend/activities-recommend.wxss";
+
+.container {
+  padding-bottom: 40px;
+}
+
+/*.weui-panel__hd {
+  padding: 14px 15px 10px;
+  color: #3CB371;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  display: flex;
+  align-items: center;
+}*/
+
+/*.section-title {
+  font-weight: bold;
+  margin-left: 5px;
+}*/
+
+/*.weui-cell_link {
+  color: #7dd0b6;
+}*/
+
+/*.weui-flex__item {
+  min-width: 0;
+}*/
+
+.plant-item {
+  padding: 0 4px;
+}
+
+.weui-flex__item image {
+  display: block;
+  width: auto;
+  /*background: #fff;*/
+}
+
+.plant-img {
+  height: 80px;
+}
+
+.weui-panel {
+  margin-top: 20px;
+}

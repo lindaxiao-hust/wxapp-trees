@@ -1,5 +1,5 @@
 .tree-info-container {
-  padding: 0 15px 15px;
+  padding: 0 15px 10px;
 }
 
 .tree-info-name {
@@ -19,7 +19,6 @@ navigator {
   font-size: 14px;
 }
 
-
 .culture-container {
   margin-bottom: 10px;
   padding-bottom: 8px;
@@ -31,4 +30,20 @@ navigator {
 
 .culture-info {
   margin-bottom: 5px;
+}
+
+.tree-img {
+  display: block;
+  width: auto;
+  height: 150px;
+}
+
+.tree-title {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.weui-uploader__file_status {
+  margin-bottom: 15px;
 }

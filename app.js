@@ -22,6 +22,6 @@ App({
     })
   },
   globalData: {
-    tweetUrl: ''
+    tweetUrl: '' // 现使用tweet，弃用旧的tip，无用
   }
 })

@@ -6,6 +6,8 @@ var pageSize = config.pageSize //传给服务器的查询长度
 
 Page({
   data: {
+    httpsHost: config.service.httpsHost,
+    defaultImg: config.defaultImg,
     dataLoadStatus: 'loading',//判断页面数据是否加载状态
     plantId: 0, //植物id，由链接参数获取
     loadmore: true, //是否正在加载
@@ -17,28 +19,35 @@ Page({
     this.setData({
       plantId: option.plant_id
     })
+  },
+  onShow: function() {
     this.requestActivity()
   },
   requestActivity: function() {
     var that = this
     qcloud.request({
       login: true,
-      // url: config.service.activityRequestUrl + 'all/pid=445',
+      // url: config.service.activityRequestUrl + 'all/pid=522',
       url: config.service.activityRequestUrl + 'all/pid=' + that.data.plantId,
       success: function(response) {
         console.log(response);
         if (response.statusCode === 200) {
           var activityListTmp = response.data.activityList
+          if(!response.data.plantInfo) {
+            wx.redirectTo({
+              url: '../tip/tip'
+            })
+          }
           // 若植物当前没有活动，则跳转至植物介绍页面
           if (activityListTmp.length === 0) {
             wx.redirectTo({
               url: '../tree/tree?plant_id=' + that.data.plantId
-              // url: '../tree/tree?plant_id=455'
+              // url: '../tree/tree?plant_id=555'
             })
           } else if(activityListTmp.length === 1) {
             wx.redirectTo({
               url: '../tree/tree?plant_id=' + that.data.plantId + '&activity_id=' + activityListTmp[0].activityId
-              // url: '../tree/tree?plant_id=419&activity_id=5'
+              // url: '../tree/tree?plant_id=522&activity_id=11'
             })
           } else {
             for (let index in activityListTmp) {

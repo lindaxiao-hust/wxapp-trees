@@ -14,17 +14,20 @@ Page({
     requestNopicUrl: '',
     loadingMsg: '',//加载信息
     successMsg: '',//服务器返回的成功信息
-    failMsg: '',//服务器返回的失败信息
-    reply: false//记录当前为评论还是回复
+    failMsg: ''//服务器返回的失败信息
   },
   data: {
     imageList: [],
     focus: true,
-    disabledBtn: false
+    disabledBtn: false,
+    contentType: '', // 评论类型
+    placeholder: '评论一下吧',
+    reply: true //记录当前为评论还是回复
   },
   onLoad: function(option) {
     console.log(option)
     this.globalData.foreignId = option.foreignId
+    var contentType = ''
     this.globalData.type = option.type
     //评论
     if(option.toUserId === undefined) {
@@ -36,6 +39,20 @@ Page({
       this.globalData.successMsg = '评论成功'
       this.globalData.failMsg = '评论失败'
       this.globalData.loadingMsg = '评论上传中'
+
+      if(+this.globalData.type === config.commentType.commentPlantPoint) {
+        contentType = '植物点'
+      } else if(+this.globalData.type === config.commentType.commentActivity) {
+        contentType = '活动'
+      } else if(+this.globalData.type === config.commentType.commentPlant) {
+        contentType = '植物'
+      } else if(+this.globalData.type === config.commentType.commentTweet) {
+        contentType = '推文'
+      }
+      this.setData({
+        contentType: contentType,
+        reply: false
+      })
     } else {
       //回复
       wx.setNavigationBarTitle({
@@ -47,25 +64,20 @@ Page({
       this.globalData.successMsg = '回复成功'
       this.globalData.failMsg = '回复失败'
       this.globalData.loadingMsg = '回复上传中'
-      this.globalData.reply = true
     }
-    console.log(this.globalData.requestNopicUrl);
-    //评论/回复提示
-    if(option.activityName !== undefined) {
+
+    if(option.name !== undefined) {
       this.setData({
-        placeholder: '评论一下' + option.activityName +'吧'
+        contentTitle: option.name
       })
     }
-    if(option.plantName !== undefined) {
-      this.setData({
-        placeholder: '评论一下' + option.plantName +'吧'
-      })
-    }
+    
     if(option.toUserName != undefined) {
         this.setData({
           placeholder: '回复' + option.toUserName
         })
     }
+
   },
   chooseImage: function() {
     var that = this
@@ -128,7 +140,7 @@ Page({
             messageContent: encodeURI(e.detail.value.textarea),
             openId: openId
           }
-          if(that.globalData.reply) {
+          if(that.data.reply) {
             formData.toUserId = that.globalData.toUserId
           }
           //如果评论带图，请求带图接口
@@ -144,7 +156,7 @@ Page({
                   title: that.globalData.successMsg,
                   icon: 'success'
                 })
-                if(that.globalData.reply) {
+                if(that.data.reply) {
                   wx.navigateBack({
                     delta: 1 // 回退前 delta(默认为1) 页面
                   })
@@ -188,7 +200,7 @@ Page({
                   title: that.globalData.successMsg,
                   icon: 'success'
                 })
-                if(that.globalData.reply) {
+                if(that.data.reply) {
                   wx.navigateBack({
                     delta: 1 // 回退前 delta(默认为1) 页面
                   })

@@ -1,3 +1,4 @@
+var qcloud = require("../../bower_components/qcloud-weapp-client-sdk/index.js")
 var util = require('../../utils/util.js')
 var config = require('../../config')
 var treeInfoTitles = {
@@ -9,9 +10,9 @@ var treeInfoTitles = {
   intro: "简介",
   family: "科",
   genus: "属",
-  phylum: "门名称",
-  biologyClass: "纲",
-  biologyOrder: "目",
+  // phylum: "门名称",
+  // biologyClass: "纲",
+  // biologyOrder: "目",
   scientificInfo: "科学中的它",
   humanisticInfo: "人文中的它",
   // gps: "GPS信息",
@@ -24,47 +25,72 @@ var treeInfoTitles = {
 
 Page({
   data: {
+    httpsHost: config.service.httpsHost,
+    defaultImg: config.defaultImg,
+    defaultAudioPoster: config.defaultAudioPoster,
     treeInfoTitleArray: [],//存放植物名列表
     treeInfoArray: [],//存放植物信息列表
     // treeCultureArray: [],//存放植物文化列表
-    dataLoadStatus: 'loading',//判断页面数据是否加载状态
+    dataLoadStatus: 'loading', //判断页面数据是否加载状态
+    audioAction: {
+      method: 'pause'
+    }
+  },
+  globalData: {
     plantImgUrls: []//当前植物的图片地址列表
   },
   onLoad: function(option) {
     console.log(option);
-    var treeInfo = JSON.parse(option.treeInfo)
-    var plantImgUrlsTmp = []
-    //导出图片链接数组
-    for(let index in treeInfo.pictures) {
-      plantImgUrlsTmp.push(config.service.httpsHost + treeInfo.pictures[index].pictureName)
-    }
-    var treeInfoArrayTmp = []
-    var treeInfoTitleArrayTmp = []
-    for(let key in treeInfoTitles) {
-      if(key !== 'plantId' && key !== 'pictures' && key !== 'pictureLinks' && key !== 'cultures' && key !== 'qrCode' && key !== 'species') {
-        if(!treeInfo[key] || treeInfo[key] === "") {
-          // treeInfo[key] = "暂无相关信息"
-          continue
+    var plantId = option.plantId
+    var treeInfo = {}
+    var that = this
+    qcloud.request({
+      login: true,
+      url: config.service.plantRequestUrl + 'detail/pid=' + plantId,
+      success: function(response) {
+        console.log(response);
+        if(response.statusCode === 200) {
+          treeInfo = response.data.plantInfo
+          //导出图片链接数组
+          for(let index in treeInfo.pictures) {
+            that.globalData.plantImgUrls.push(config.service.httpsHost + treeInfo.pictures[index].pictureName)
+          }
+          var treeInfoArrayTmp = []
+          var treeInfoTitleArrayTmp = []
+          for(let key in treeInfoTitles) {
+            if(key !== 'plantId' && key !== 'pictures' && key !== 'pictureLinks' && key !== 'cultures' && key !== 'qrCode' && key !== 'species') {
+              if(!treeInfo[key] || treeInfo[key] === "") {
+                // treeInfo[key] = "暂无相关信息"
+                continue
+              }
+              treeInfoTitleArrayTmp.push(treeInfoTitles[key])
+              if(key === 'createTime') {
+                treeInfo[key] = util.formatDateTime(treeInfo[key])
+              }
+              treeInfoArrayTmp.push(treeInfo[key])
+            }
+          }
+
+          that.setData({
+            audio: treeInfo['audio'],
+            audioPoster: treeInfo['audioPoster'],
+            audioName: treeInfo['audioName'],
+            audioAuthor: treeInfo['audioAuthor'],
+            species: treeInfo['species'],
+            treeInfoTitleArray: treeInfoTitleArrayTmp,
+            treeInfoArray: treeInfoArrayTmp,
+            // treeCultureArray: treeInfo.cultures,
+            dataLoadStatus: 'success',
+            plantImgsLen: that.globalData.plantImgUrls.length,
+            plantImg: that.globalData.plantImgUrls[0]
+          })
         }
-        treeInfoTitleArrayTmp.push(treeInfoTitles[key])
-        if(key === 'createTime') {
-          treeInfo[key] = util.formatDateTime(treeInfo[key])
-        }
-        treeInfoArrayTmp.push(treeInfo[key])
       }
-    }
-    this.setData({
-      species: treeInfo['species'],
-      treeInfoTitleArray: treeInfoTitleArrayTmp,
-      treeInfoArray: treeInfoArrayTmp,
-      // treeCultureArray: treeInfo.cultures,
-      dataLoadStatus: 'success',
-      plantImgUrls: plantImgUrlsTmp
     })
   },
   showPlantImgs: function() {
     wx.previewImage({
-      urls: this.data.plantImgUrls,
+      urls: this.globalData.plantImgUrls,
       fail: function() {
         wx.showToast({
           title: '加载图片失败',

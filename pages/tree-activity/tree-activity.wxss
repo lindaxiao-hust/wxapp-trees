@@ -1,4 +1,5 @@
 @import "../tree/tree.wxss";
+@import "../tree-info/tree-info.wxss";
 
 .project-name {
   font-size: 20px;

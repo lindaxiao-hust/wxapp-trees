@@ -1,0 +1,26 @@
+.tree-img {
+  display: block;
+  width: auto;
+  background: #fff;
+  height: 150px;
+}
+
+.tree-info {
+  width: 80%;
+  text-align: center;
+}
+
+.tree-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.tree-intro {
+  font-size: 13px;
+  /*line-height: 1.2;*/
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}

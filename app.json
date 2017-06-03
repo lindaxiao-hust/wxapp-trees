@@ -1,6 +1,9 @@
 {
   "pages": [
+
+    "pages/index-new/index-new",
     "pages/index/index",
+
     "pages/tree-activity/tree-activity",
     "pages/tree/tree",
     "pages/tweets/tweets",
@@ -8,7 +11,13 @@
     "pages/activity/activity",
     "pages/comments/comments",
     "pages/comment/comment",
-    "pages/tip/tip"
+    "pages/tip/tip",
+
+    "pages/tweet/tweet",
+    "pages/tweets-recommend/tweets-recommend",
+    "pages/trees-recommend/trees-recommend",
+    "pages/activities-recommend/activities-recommend"
+
   ],
   "window": {
     "navigationBarBackgroundColor": "#f8f8f8",
