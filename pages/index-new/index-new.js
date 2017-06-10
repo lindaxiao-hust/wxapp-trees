@@ -23,14 +23,20 @@ Page({
           console.log(response);
           // 日期时间格式化处理
           var activities = response.data.activities
-          activities.forEach(function(activity) {
-            activity.startTime = util.formatDateTime(activity.startTime)
-            activity.endTime = util.formatDateTime(activity.endTime)
-          })
+          if(activities) {
+            activities.forEach(function(activity) {
+              activity.startTime = util.formatDateTime(activity.startTime)
+              activity.endTime = util.formatDateTime(activity.endTime)
+            })
+          }
+
           var tweets = response.data.tweets
-          tweets.forEach(function(tweet) {
-            tweet.createTime = util.formatDateTime(tweet.createTime)
-          })
+          if(tweets) {
+            tweets.forEach(function(tweet) {
+              tweet.createTime = util.formatDateTime(tweet.createTime)
+            })
+          }
+
           that.setData({
             dataLoadStatus: 'success',
             plants: response.data.plants,
